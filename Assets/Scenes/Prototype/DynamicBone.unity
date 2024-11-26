@@ -222,6 +222,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1395200346388739473, guid: ecf65c4aec9622e43846a7a89af5094f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.033
+      objectReference: {fileID: 0}
+    - target: {fileID: 1395200346388739473, guid: ecf65c4aec9622e43846a7a89af5094f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.441
+      objectReference: {fileID: 0}
     - target: {fileID: 8273278869961059752, guid: ecf65c4aec9622e43846a7a89af5094f, type: 3}
       propertyPath: m_Name
       value: GGG_Cat_DB
