@@ -823,10 +823,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1526539955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad56fdd87cd8c6499140389119c9fa6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0402b0a1d23cf0847a1ede0bf1efd8b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: HI!
+  currentChat:
+    lines:
+    - Hey fool.
+    - Yea YOU!
+    - Little tiny man over there.
+    currentLine: 0
 --- !u!1 &1583449099
 GameObject:
   m_ObjectHideFlags: 0

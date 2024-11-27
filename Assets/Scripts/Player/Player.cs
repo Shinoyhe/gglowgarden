@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     private bool pressedInteract;
     private float verticalVelocity = 0f;
     private float currentWalkSpeed;
+    private bool canMove = true;
 
     #region "Setup"
     private void Awake()
@@ -66,8 +67,11 @@ public class Player : MonoBehaviour
     private void Update()
     {
         ReadInput();
-        Gravity();
-        Movement();
+        if (canMove)
+        {
+            Gravity();
+            Movement();
+        }
         SendInteract();
     }
 
@@ -98,7 +102,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            currentWalkSpeed -= walkAcceleration * Time.deltaTime;
+            currentWalkSpeed -= walkDeceleration * Time.deltaTime;
         }
 
         currentWalkSpeed = Mathf.Clamp(currentWalkSpeed, minWalkSpeed, maxWalkSpeed);
@@ -107,6 +111,11 @@ public class Player : MonoBehaviour
         Vector3 move = new Vector3(moveInput.x, verticalVelocity, moveInput.y);
         move *= currentWalkSpeed;
         characterController.Move(move * Time.deltaTime);
+    }
+
+    public void ToggleMovement(bool canMove)
+    {
+        this.canMove = canMove;
     }
 
     private void SendInteract()
@@ -122,7 +131,8 @@ public class Player : MonoBehaviour
 
     }
 
-    private IInteractable getClosestInteractable() {
+    private IInteractable getClosestInteractable()
+    {
 
         // Get all colliders near player
         Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactDistance);
@@ -136,7 +146,7 @@ public class Player : MonoBehaviour
         {
             // Only if collider has interactable we keep processing
             if (collider.TryGetComponent(out IInteractable interact) == false) continue;
-            
+
             // Get distance from player to collider
             float x = Vector3.Distance(collider.transform.position, transform.position);
 
@@ -146,7 +156,7 @@ public class Player : MonoBehaviour
                 minDistance = x;
                 closestInteract = interact;
             }
-            
+
         }
 
         // Return our closest collider or NULL if none found!
