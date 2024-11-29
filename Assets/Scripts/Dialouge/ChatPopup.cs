@@ -48,9 +48,14 @@ public class ChatPopup : ChatHelper
     // Setup our Input
     private void Awake()
     {
-        if(player == null)
+        if (player == null)
         {
             player = GameObject.Find("TestPlayer").GetComponent<Player>();
+        }
+
+        if (player.inConversation) { 
+            Destroy(gameObject);
+            return;
         }
 
         action = new CoreInput();
@@ -58,6 +63,7 @@ public class ChatPopup : ChatHelper
 
         // Freeze player
         player.ToggleMovement(false);
+        player.inConversation = true;
 
         // Setup interact UI
         interactAction.Enable();
@@ -109,7 +115,7 @@ public class ChatPopup : ChatHelper
 
     private void displayLine()
     {
-        if(popupLineToUse >= allPopups.lines.Length)
+        if (popupLineToUse >= allPopups.lines.Length)
         {
             Debug.LogError("Trying to use popup number outside of given popup list!");
         }
@@ -127,6 +133,7 @@ public class ChatPopup : ChatHelper
     {
         // UnFreeze player
         player.ToggleMovement(true);
+        player.inConversation = false;
 
         // Destroy UI Element
         if (dialoguePrefabInstance != null)

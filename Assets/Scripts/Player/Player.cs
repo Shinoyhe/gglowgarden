@@ -31,15 +31,23 @@ public class Player : MonoBehaviour
 
     // Internal Logics
     public CoreInput action;
+
+    // Input Logics
     private InputAction moveAction;
     private InputAction interactAction;
     private InputAction debugAction;
-    private Vector2 moveInput;
-    private bool pressedInteract;
-    private bool pressedDebugButton;
+
+    // Trackers
     private float verticalVelocity = 0f;
     private float currentWalkSpeed;
     private bool canMove = true;
+    [HideInInspector]
+    public bool inConversation = false;
+
+    // Input Trackers
+    private Vector2 moveInput;
+    private bool pressedInteract;
+    private bool pressedDebugButton;
 
     #region "Setup"
     private void Awake()

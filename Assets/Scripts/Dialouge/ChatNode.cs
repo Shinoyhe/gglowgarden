@@ -85,10 +85,11 @@ public class ChatNode : ChatHelper, IInteractable
     // Just incase the player leaves the range of the player by some command.
     public void Interact()
     {
-        if (conversationStarted) return;
+        if (conversationStarted || player.inConversation) return;
 
         // Freeze player
         player.ToggleMovement(false);
+        player.inConversation = true;
 
         // Setup interact UI
         interactAction.Enable();
@@ -153,6 +154,7 @@ public class ChatNode : ChatHelper, IInteractable
     {
         // UnFreeze player
         player.ToggleMovement(true);
+        player.inConversation = false;
 
         // Destroy UI Element
         if (dialoguePrefabInstance != null)
