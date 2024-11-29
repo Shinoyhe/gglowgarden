@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 [System.Serializable]
 public struct Conversation
 {
-    public string name;
     public string[] lines;
+    [HideInInspector]
     public int currentLine;
 }
 
@@ -21,11 +21,15 @@ public struct Tags
     }
 }
 
+
 public class ChatNode : MonoBehaviour, IInteractable
 {
     [Header("Dependencies")]
     public Player player;
     public GameObject dialoguePrefab;
+
+    [Header("Conversation Text")]
+    public TextAsset conversation;
 
     [Space]
     [Space]
@@ -41,7 +45,20 @@ public class ChatNode : MonoBehaviour, IInteractable
 
     // Input
     CoreInput action;
+    string lastConvo;
     private InputAction interactAction;
+
+    void OnValidate()
+    {
+        if (conversation == null) return;
+        if (lastConvo == conversation.text) return;
+        if (Application.isPlaying == true) return;
+
+        Debug.Log("Performed update to Chat Text");
+
+        currentChat.lines = conversation.text.Split('\n');
+        lastConvo = conversation.text;
+    }
 
     // Setup our Input
     private void Awake()

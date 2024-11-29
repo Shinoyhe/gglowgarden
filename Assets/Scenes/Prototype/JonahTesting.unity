@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad56fdd87cd8c6499140389119c9fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: NOOO!
+  text: Test!
 --- !u!65 &799787161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -896,12 +896,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1009838358}
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
+  conversation: {fileID: 4900000, guid: a9085b57650aed34fac8b05930c44708, type: 3}
   currentChat:
-    name: Squid
     lines:
-    - '[Test] [Name,Bill] [Name]Hey fool....'
-    - Yea YOU!
-    - '[Name, Uhh] Little tiny man over there!!!'
+    - "[Name,Bill] Hey fool....\r"
+    - "Oh no are they talking to me...\r"
+    - "[Name,Bill] Yea YOU!\r"
+    - "[Name,Bill] Little tiny man over there!!!\r"
+    - Aw... ok...
     currentLine: 0
 --- !u!1 &1583449099
 GameObject:
