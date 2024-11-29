@@ -4,15 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-[System.Serializable]
-public struct Conversation
-{
-    public string[] lines;
-    [HideInInspector]
-    public int currentLine;
-}
-
-public class ChatNode : ChatHelper, IInteractable
+public class ChatPopup : ChatHelper
 {
     [Header("Outside Links")]
     public UnityEvent callback;
@@ -21,12 +13,13 @@ public class ChatNode : ChatHelper, IInteractable
     public Player player;
     public GameObject dialoguePrefab;
 
-    [Header("Conversation Text")]
-    public TextAsset conversation;
+    [Header("Set Popup Reference")]
+    public TextAsset popupText;
+    public int popupLineToUse = 0;
 
     [Space]
     [Space]
-    public Conversation currentChat;
+    public Conversation allPopups;
 
     // Dialouge Instances
     private DisplayText dialougesDisplayText;
@@ -34,7 +27,6 @@ public class ChatNode : ChatHelper, IInteractable
 
     // Trackers
     private int skipCount = 0;
-    private bool conversationStarted = false;
 
     // Input
     CoreInput action;
@@ -43,49 +35,26 @@ public class ChatNode : ChatHelper, IInteractable
 
     void OnValidate()
     {
-        if (conversation == null) return;
-        if (lastConvo == conversation.text) return;
+        if (popupText == null) return;
+        if (lastConvo == popupText.text) return;
         if (Application.isPlaying == true) return;
 
-        Debug.Log("Performed update to Chat Text");
+        Debug.Log("Performed update to Popup Text");
 
-        currentChat.lines = conversation.text.Split('\n');
-        lastConvo = conversation.text;
+        allPopups.lines = popupText.text.Split('\n');
+        lastConvo = popupText.text;
     }
 
     // Setup our Input
     private void Awake()
     {
-        action = new CoreInput();
-        interactAction = action.Player.Interact;
-    }
-
-    public void Update()
-    {
-        bool pressedInteract = interactAction.WasPressedThisFrame() && interactAction.ReadValue<float>() == 1;
-
-        if (!pressedInteract || !conversationStarted) return;
-
-        if (dialougesDisplayText.finishedTypingText)
+        if(player == null)
         {
-            skipCount = 0;
-            nextLine();
-            return;
+            player = GameObject.Find("TestPlayer").GetComponent<Player>();
         }
 
-        skipCount += 1;
-        if (skipCount != 2) return;
-
-        dialougesDisplayText.skipText();
-        skipCount = 0;
-    }
-
-    // Called by player to start conversation
-    // Uses its own internal interaction System for the rest of the inputs
-    // Just incase the player leaves the range of the player by some command.
-    public void Interact()
-    {
-        if (conversationStarted) return;
+        action = new CoreInput();
+        interactAction = action.Player.Interact;
 
         // Freeze player
         player.ToggleMovement(false);
@@ -96,11 +65,29 @@ public class ChatNode : ChatHelper, IInteractable
         // Create UI
         createDialogueUI();
 
-        // Start Conversation
-        nextLine();
-        conversationStarted = true;
+        // Show popup
+        displayLine();
     }
 
+    public void Update()
+    {
+        bool pressedInteract = interactAction.WasPressedThisFrame() && interactAction.ReadValue<float>() == 1;
+
+        if (!pressedInteract) return;
+
+        if (dialougesDisplayText.finishedTypingText)
+        {
+            skipCount = 0;
+            endChat();
+            return;
+        }
+
+        skipCount += 1;
+        if (skipCount != 2) return;
+
+        dialougesDisplayText.skipText();
+        skipCount = 0;
+    }
     public void createDialogueUI()
     {
         // Destroy any past dialogue UI
@@ -120,22 +107,13 @@ public class ChatNode : ChatHelper, IInteractable
         }
     }
 
-    public void nextLine()
-    {
-        // Try to end conversation
-        if (currentChat.currentLine >= currentChat.lines.Length)
-        {
-            endChat();
-        }
-        else
-        {
-            displayLine();
-        }
-    }
-
     private void displayLine()
     {
-        string currentTextLine = currentChat.lines[currentChat.currentLine];
+        if(popupLineToUse >= allPopups.lines.Length)
+        {
+            Debug.LogError("Trying to use popup number outside of given popup list!");
+        }
+        string currentTextLine = allPopups.lines[popupLineToUse];
 
         // Filter tags
         Tags currentTags = getTags(currentTextLine);
@@ -143,11 +121,7 @@ public class ChatNode : ChatHelper, IInteractable
 
         // Setup our dialouge
         dialougesDisplayText.setupDialogueText(currentTextNoTags, currentTags);
-
-        // Increase line count
-        currentChat.currentLine += 1;
     }
-
 
     public void endChat()
     {
@@ -162,10 +136,6 @@ public class ChatNode : ChatHelper, IInteractable
 
         // Stop interact
         interactAction.Disable();
-
-        // Reset trackers
-        currentChat.currentLine = 0;
-        conversationStarted = false;
 
         // Trigger any callbacks
         callback.Invoke();

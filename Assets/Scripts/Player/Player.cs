@@ -1,6 +1,7 @@
 using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public interface IInteractable
@@ -25,12 +26,17 @@ public class Player : MonoBehaviour
     [Header("Interaction Settings")]
     [SerializeField] private float interactDistance = 15f;
 
+    [Header("Debug Settings")]
+    public GameObject debugObjectToCreate;
+
     // Internal Logics
     public CoreInput action;
     private InputAction moveAction;
     private InputAction interactAction;
+    private InputAction debugAction;
     private Vector2 moveInput;
     private bool pressedInteract;
+    private bool pressedDebugButton;
     private float verticalVelocity = 0f;
     private float currentWalkSpeed;
     private bool canMove = true;
@@ -42,6 +48,7 @@ public class Player : MonoBehaviour
         action = new CoreInput();
         moveAction = action.Player.Move;
         interactAction = action.Player.Interact;
+        debugAction = action.Player.Fire;
 
         // Components
         characterController = GetComponent<CharacterController>();
@@ -54,12 +61,14 @@ public class Player : MonoBehaviour
     {
         moveAction.Enable();
         interactAction.Enable();
+        debugAction.Enable();
     }
 
     private void OnDisable()
     {
         moveAction.Disable();
         interactAction.Disable();
+        debugAction.Disable();
     }
 
     #endregion
@@ -72,6 +81,12 @@ public class Player : MonoBehaviour
             Gravity();
             Movement();
         }
+
+        if (pressedDebugButton)
+        {
+            Instantiate(debugObjectToCreate);
+        }
+
         SendInteract();
     }
 
@@ -79,6 +94,7 @@ public class Player : MonoBehaviour
     {
         moveInput = moveAction.ReadValue<Vector2>().normalized;
         pressedInteract = interactAction.WasPressedThisFrame() && interactAction.ReadValue<float>() == 1;
+        pressedDebugButton = debugAction.WasPressedThisFrame() && debugAction.ReadValue<float>() == 1;
     }
 
     private void Gravity()
