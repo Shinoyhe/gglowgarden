@@ -895,14 +895,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1009838358}
+  dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
   currentChat:
     name: Squid
     lines:
-    - Hey fool.
+    - Hey fool....
     - Yea YOU!
-    - Little tiny man over there.
+    - Little tiny man over there!!!
     currentLine: 0
-  dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
 --- !u!1 &1583449099
 GameObject:
   m_ObjectHideFlags: 0
