@@ -1,3 +1,4 @@
+using OpenCover.Framework.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ public class ChatNode : MonoBehaviour, IInteractable
     private DisplayText dialougesDisplayText;
     private bool conversationStarted = false;
     private InputAction interactAction;
+    private int skipCount = 0;
 
     private void Awake()
     {
@@ -37,12 +39,24 @@ public class ChatNode : MonoBehaviour, IInteractable
     {
         bool pressedInteract = interactAction.WasPressedThisFrame() && interactAction.ReadValue<float>() == 1;
 
-        if (pressedInteract && conversationStarted)
-        {
+        if (!pressedInteract || !conversationStarted) return;
+        
+        if (dialougesDisplayText.finishedTypingText) {
+            skipCount = 0;
             nextLine();
+            return;
         }
+
+        skipCount += 1;
+        if (skipCount != 2) return;
+            
+        dialougesDisplayText.skipText();
+        skipCount = 0;
     }
 
+    // Called by player to start conversation
+    // Uses its own internal interaction System for the rest of the inputs
+    // Just incase the player leaves the range of the player by some command.
     public void Interact()
     {
         if (conversationStarted) return;
