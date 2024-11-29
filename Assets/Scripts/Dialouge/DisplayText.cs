@@ -1,13 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using System;
+
+[Serializable]
+public struct TextTheme
+{
+    public Color nameTextColor;
+    public Color nameBackgroundColor;
+    public Color mainTextColor;
+    public Color mainBackgroundColor;
+}
 
 public class DisplayText : MonoBehaviour
 {
     [Header("Dependencies")]
     public TMP_Text nameText;
     public TMP_Text dialogueText;
+    public Image dialogueTextBackground;
+    public Image nameBackground;
+
+    [Header("Themes")]
+    public TextTheme narrationTheme;
+    public TextTheme npcTheme;
 
     [Header("Audio Clips")]
     public AudioClip[] talkingClips;
@@ -23,13 +39,14 @@ public class DisplayText : MonoBehaviour
     private AudioSource source;
     [HideInInspector]
     public bool finishedTypingText = false;
+    private Tags currentLineTags;
 
     private void Awake()
     {
         source = GetComponent<AudioSource>();
     }
 
-    public void setupDialogueText(string text)
+    public void setupDialogueText(string text, Tags currentTags)
     {
         // Set Text
         dialogueText.text = text;
@@ -39,12 +56,33 @@ public class DisplayText : MonoBehaviour
         finishedTypingText = false;
         dialogueText.maxVisibleCharacters = 0;
 
+        // Link Tags
+        currentLineTags = currentTags;
+        ProcessTags();
+
         // Start Printing
         StartCoroutine("nextCharacter");
     }
-    public void setupNameText(string name)
+
+    public void ProcessTags()
     {
-        nameText.text = name;
+        // Get Name
+        nameText.text = currentLineTags.name;
+
+        bool isNarration = nameText.text == null;
+
+        TextTheme currentTheme = npcTheme;
+
+        if (isNarration)
+        {
+            currentTheme = narrationTheme;
+        }
+
+        nameText.color = currentTheme.nameTextColor;
+        nameBackground.color = currentTheme.nameBackgroundColor;
+
+        dialogueText.color = currentTheme.mainTextColor;
+        dialogueTextBackground.color = currentTheme.mainBackgroundColor;
     }
 
     public void skipText()
@@ -70,14 +108,14 @@ public class DisplayText : MonoBehaviour
 
         // Play sound every other character or if a punctuation
         if (currentCharacter == '.' || dialogueText.maxVisibleCharacters % 2 == 0)
-        { 
+        {
             playTalkSound(currentCharacter);
         }
 
         // Get next character
         dialogueText.maxVisibleCharacters += 1;
 
-        if(dialogueText.maxVisibleCharacters >= charactersForThisLine)
+        if (dialogueText.maxVisibleCharacters >= charactersForThisLine)
         {
             finishedTypingText = true;
         }
@@ -94,7 +132,7 @@ public class DisplayText : MonoBehaviour
             source.Stop();
         }
 
-        source.pitch = Random.Range(minPitch, maxPitch);
+        source.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
 
         if (char.IsLetter(currentCharacter))
         {

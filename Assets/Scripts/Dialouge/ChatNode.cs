@@ -11,6 +11,16 @@ public struct Conversation
     public int currentLine;
 }
 
+public struct Tags
+{
+    public string name;
+
+    public Tags(string Name = "")
+    {
+        name = Name;
+    }
+}
+
 public class ChatNode : MonoBehaviour, IInteractable
 {
     [Header("Dependencies")]
@@ -45,8 +55,9 @@ public class ChatNode : MonoBehaviour, IInteractable
         bool pressedInteract = interactAction.WasPressedThisFrame() && interactAction.ReadValue<float>() == 1;
 
         if (!pressedInteract || !conversationStarted) return;
-        
-        if (dialougesDisplayText.finishedTypingText) {
+
+        if (dialougesDisplayText.finishedTypingText)
+        {
             skipCount = 0;
             nextLine();
             return;
@@ -54,7 +65,7 @@ public class ChatNode : MonoBehaviour, IInteractable
 
         skipCount += 1;
         if (skipCount != 2) return;
-            
+
         dialougesDisplayText.skipText();
         skipCount = 0;
     }
@@ -116,25 +127,15 @@ public class ChatNode : MonoBehaviour, IInteractable
     {
         string currentTextLine = currentChat.lines[currentChat.currentLine];
 
+        // Filter tags
         Tags currentTags = getTags(currentTextLine);
-
-        currentChat.currentLine += 1;
-
-        string currentText = removeTags(currentTextLine);
+        string currentTextNoTags = removeTags(currentTextLine);
 
         // Setup our dialouge
-        dialougesDisplayText.setupNameText(currentTags.name);
-        dialougesDisplayText.setupDialogueText(currentText);
-    }
+        dialougesDisplayText.setupDialogueText(currentTextNoTags, currentTags);
 
-    public struct Tags
-    {
-        public string name;
-
-        public Tags(string Name = "")
-        {
-            name = Name;
-        }
+        // Increase line count
+        currentChat.currentLine += 1;
     }
 
     public Tags getTags(string currentLine)
@@ -180,6 +181,8 @@ public class ChatNode : MonoBehaviour, IInteractable
         // Get tags with structure [KEY,var,var] [tags,var,var]
         Regex regex = new Regex(@"\[(.*?)\]");
         MatchCollection matches = regex.Matches(currentLine);
+
+        if (matches.Count == 0) return currentLine;
 
         // Get the last match
         Match lastMatch = matches[matches.Count - 1];
