@@ -16,21 +16,29 @@ public struct Conversation
 
 public class ChatNode : MonoBehaviour, IInteractable
 {
+    [Header("Dependencies")]
     public Player player;
-
-    public Conversation currentChat;
     public GameObject dialoguePrefab;
+
+    [Space]
+    [Space]
+    public Conversation currentChat;
+
+    // Dialouge Instances
+    private DisplayText dialougesDisplayText;
     private GameObject dialoguePrefabInstance = null;
 
-    CoreInput action;
-    private DisplayText dialougesDisplayText;
-    private bool conversationStarted = false;
-    private InputAction interactAction;
+    // Trackers
     private int skipCount = 0;
+    private bool conversationStarted = false;
 
+    // Input
+    CoreInput action;
+    private InputAction interactAction;
+
+    // Setup our Input
     private void Awake()
     {
-        // Input
         action = new CoreInput();
         interactAction = action.Player.Interact;
     }

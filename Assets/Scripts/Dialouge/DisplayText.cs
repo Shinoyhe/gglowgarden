@@ -9,14 +9,20 @@ public class DisplayText : MonoBehaviour
     public TMP_Text dialogueText;
 
     private int charactersForThisLine = 0;
+    [HideInInspector]
     public bool finishedTypingText = false;
 
     public void setupDialogueText(string text)
     {
+        // Set Text
         dialogueText.text = text;
+        charactersForThisLine = text.Length;
+
+        // Reset Trackers
         finishedTypingText = false;
         dialogueText.maxVisibleCharacters = 0;
-        charactersForThisLine = text.Length;
+
+        // Start Printing
         StartCoroutine("nextCharacter");
     }
     public void setupNameText(string name)
@@ -32,7 +38,7 @@ public class DisplayText : MonoBehaviour
 
     IEnumerator nextCharacter()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.05f);
         dialogueText.maxVisibleCharacters += 1;
 
         if(dialogueText.maxVisibleCharacters >= charactersForThisLine)
