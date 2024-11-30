@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public interface IInteractable
@@ -26,14 +27,28 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask interactionLayers;
     [SerializeField] private GameObject interactIndicator;
 
+    [Header("Debug Settings")]
+    public GameObject debugObjectToCreate;
+
     // Internal Logics
     public CoreInput action;
+
+    // Input Logics
     private InputAction moveAction;
     private InputAction interactAction;
-    private Vector2 moveInput;
-    private bool pressedInteract;
+    private InputAction debugAction;
+
+    // Trackers
     private float verticalVelocity = 0f;
     private float currentWalkSpeed;
+    private bool canMove = true;
+    [HideInInspector]
+    public bool inConversation = false;
+
+    // Input Trackers
+    private Vector2 moveInput;
+    private bool pressedInteract;
+    private bool pressedDebugButton;
 
     #region "Setup"
     private void Awake()
@@ -42,6 +57,7 @@ public class Player : MonoBehaviour
         action = new CoreInput();
         moveAction = action.Player.Move;
         interactAction = action.Player.Interact;
+        debugAction = action.Player.Fire;
 
         // Components
         characterController = GetComponent<CharacterController>();
@@ -54,12 +70,14 @@ public class Player : MonoBehaviour
     {
         moveAction.Enable();
         interactAction.Enable();
+        debugAction.Enable();
     }
 
     private void OnDisable()
     {
         moveAction.Disable();
         interactAction.Disable();
+        debugAction.Disable();
     }
 
     #endregion
@@ -67,8 +85,17 @@ public class Player : MonoBehaviour
     private void Update()
     {
         ReadInput();
-        Gravity();
-        Movement();
+        if (canMove)
+        {
+            Gravity();
+            Movement();
+        }
+
+        if (pressedDebugButton)
+        {
+            Instantiate(debugObjectToCreate);
+        }
+
         SendInteract();
     }
 
@@ -76,6 +103,7 @@ public class Player : MonoBehaviour
     {
         moveInput = moveAction.ReadValue<Vector2>().normalized;
         pressedInteract = interactAction.WasPressedThisFrame() && interactAction.ReadValue<float>() == 1;
+        pressedDebugButton = debugAction.WasPressedThisFrame() && debugAction.ReadValue<float>() == 1;
     }
 
     private void Gravity()
@@ -99,7 +127,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            currentWalkSpeed -= walkAcceleration * Time.deltaTime;
+            currentWalkSpeed -= walkDeceleration * Time.deltaTime;
         }
 
         currentWalkSpeed = Mathf.Clamp(currentWalkSpeed, minWalkSpeed, maxWalkSpeed);
@@ -114,6 +142,11 @@ public class Player : MonoBehaviour
         // move = transform.forward*moveInput.magnitude;
         move *= currentWalkSpeed;
         characterController.Move(move * Time.deltaTime);
+    }
+
+    public void ToggleMovement(bool canMove)
+    {
+        this.canMove = canMove;
     }
 
     private void SendInteract()
@@ -133,7 +166,8 @@ public class Player : MonoBehaviour
 
     }
 
-    private IInteractable getClosestInteractable() {
+    private IInteractable getClosestInteractable()
+    {
 
         // Get all colliders near player
         Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactDistance, interactionLayers);
@@ -147,7 +181,7 @@ public class Player : MonoBehaviour
         {
             // Only if collider has interactable we keep processing
             if (collider.TryGetComponent(out IInteractable interact) == false) continue;
-            
+
             // Get distance from player to collider
             float x = Vector3.Distance(collider.transform.position, transform.position);
 
@@ -157,7 +191,7 @@ public class Player : MonoBehaviour
                 minDistance = x;
                 closestInteract = interact;
             }
-            
+
         }
 
         // Return our closest collider or NULL if none found!
