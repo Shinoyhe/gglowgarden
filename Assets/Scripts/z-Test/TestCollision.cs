@@ -11,7 +11,7 @@ public class TestCollision : MonoBehaviour, IInteractable
     [SerializeField] GameObject testDialogue;
     [SerializeField] float dialogueWait = 3;
     [SerializeField, TextArea(1,5)] string dialogue = "Oho";
-    [SerializeField] TempUI tempUI;
+    [SerializeField] UIManager tempUI;
     
     // Start is called before the first frame update
     void Start()

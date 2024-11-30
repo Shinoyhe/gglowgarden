@@ -1,5 +1,3 @@
-using System.Data;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,9 +19,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float walkAcceleration = 5f;
     [SerializeField] private float walkDeceleration = 10f;
     [SerializeField] private float gravityConstant = 15f;
+    [SerializeField] private float turnTime = 1f;
 
     [Header("Interaction Settings")]
     [SerializeField] private float interactDistance = 15f;
+    [SerializeField] private LayerMask interactionLayers;
+    [SerializeField] private GameObject interactIndicator;
 
     // Internal Logics
     public CoreInput action;
@@ -105,19 +106,29 @@ public class Player : MonoBehaviour
 
         // Move
         Vector3 move = new Vector3(moveInput.x, verticalVelocity, moveInput.y);
+        float temp = 0;
+        float targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg, ref temp, turnTime);
+        if (moveInput.magnitude>0){
+            transform.rotation = Quaternion.Euler(0f, targetRotation, 0f);
+        }
+        // move = transform.forward*moveInput.magnitude;
         move *= currentWalkSpeed;
         characterController.Move(move * Time.deltaTime);
     }
 
     private void SendInteract()
     {
-        if (!pressedInteract) return;
+        // if (!pressedInteract) return;
 
         IInteractable nearbyInteract = getClosestInteractable();
 
         if (nearbyInteract != null)
         {
-            nearbyInteract.Interact();
+            if (pressedInteract) nearbyInteract.Interact();
+            else HighlightInteractable(true);
+        }
+        else {
+            HighlightInteractable(false);
         }
 
     }
@@ -125,7 +136,7 @@ public class Player : MonoBehaviour
     private IInteractable getClosestInteractable() {
 
         // Get all colliders near player
-        Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactDistance);
+        Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactDistance, interactionLayers);
 
         // Setup our trackers
         float minDistance = float.MaxValue;
@@ -151,6 +162,10 @@ public class Player : MonoBehaviour
 
         // Return our closest collider or NULL if none found!
         return closestInteract;
+    }
+    
+    void HighlightInteractable(bool highlight){
+        interactIndicator.SetActive(highlight);
     }
 
     void OnDrawGizmos()
