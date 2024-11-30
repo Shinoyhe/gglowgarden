@@ -149,6 +149,15 @@ public class ChatNode : ChatHelper, IInteractable
         // Setup our dialouge
         dialougesDisplayText.setupDialogueText(currentTextNoTags, currentTags);
 
+        // Express any emotions!
+        switch (currentTags.emotion)
+        {
+            case 1:
+                // Surpised!
+                Debug.Log("Suprised!");
+                break;
+        }
+
         // Increase line count
         currentChat.currentLine += 1;
     }

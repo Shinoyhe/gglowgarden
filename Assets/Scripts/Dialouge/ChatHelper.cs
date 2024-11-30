@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -5,10 +6,12 @@ using UnityEngine;
 public struct Tags
 {
     public string name;
+    public int emotion; // 0 = IDLE, 1 = Surpised
 
-    public Tags(string Name = "")
+    public Tags(string Name = "", int Emotion = 0)
     {
         name = Name;
+        emotion = Emotion;
     }
 }
 
@@ -35,6 +38,10 @@ public class ChatHelper : MonoBehaviour
                 case "name":
                     if (tagParts.Length != 2) break;
                     newTags.name = removeStartingSpace(tagParts[1]);
+                    break;
+                case "emotion":
+                    if (tagParts.Length != 2) break;
+                    newTags.emotion = Int32.Parse(removeStartingSpace(tagParts[1]));
                     break;
             }
 
