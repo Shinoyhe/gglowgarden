@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -188,4 +189,25 @@ public class ChatNode : ChatHelper, IInteractable
         // Trigger any callbacks
         callback.Invoke();
     }
+    public void CreatePopups(){
+        currentChat.lines = conversation.text.Split('\n');
+        lastConvo = conversation.text;
+    }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(ChatNode))]
+public class ChatNodeEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        if(GUILayout.Button("Create"))
+        {
+            ChatNode temp = (ChatNode)target;
+            temp.CreatePopups();
+        }
+    }
+}
+#endif
