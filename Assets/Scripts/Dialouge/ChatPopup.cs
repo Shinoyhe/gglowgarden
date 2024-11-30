@@ -39,8 +39,6 @@ public class ChatPopup : ChatHelper
         if (lastConvo == popupText.text) return;
         if (Application.isPlaying == true) return;
 
-        Debug.Log("Performed update to Popup Text");
-
         allPopups.lines = popupText.text.Split('\n');
         lastConvo = popupText.text;
     }

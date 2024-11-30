@@ -19,6 +19,7 @@ public class ChatNode : ChatHelper, IInteractable
 
     [Header("Dependencies")]
     public Player player;
+    public CameraSwapper cameraController;
     public GameObject dialoguePrefab;
 
     [Header("Conversation Text")]
@@ -97,6 +98,9 @@ public class ChatNode : ChatHelper, IInteractable
         // Create UI
         createDialogueUI();
 
+        // Move Camera
+        cameraController.startConversation(this.gameObject.transform,player.gameObject.transform);
+
         // Start Conversation
         nextLine();
         conversationStarted = true;
@@ -164,6 +168,9 @@ public class ChatNode : ChatHelper, IInteractable
 
         // Stop interact
         interactAction.Disable();
+
+        // Move Camera Back
+        cameraController.endConversation();
 
         // Reset trackers
         currentChat.currentLine = 0;
