@@ -123,10 +123,9 @@ MonoBehaviour:
       m_Calls: []
   player: {fileID: 0}
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
-  popupText: {fileID: 4900000, guid: 74bed1c8577814842bfd75339158ee18, type: 3}
+  popupText: {fileID: 4900000, guid: 6947c4982e01da746a4cb12e804f3f13, type: 3}
   popupLineToUse: 0
   allPopups:
     lines:
-    - '[Name,Bill] Congratulations cat! You did it! You''re amazing!<br>Next thing
-      is the maze to the right!'
+    - '[Name,Bill] You''re all done! Come back here for the ggl-orb!'
     currentLine: 0

@@ -1,9 +1,17 @@
-The sun beams down on you, that walk was long and you only hunger more. Hopefully this stranger may be able to assist.
+The sun beams down on you, that walk was long and you only hunger more. 
+Hopefully this stranger may be able to assist.
 [Name,???] <i>Hallo!!!</i>
 Their voice echoes in bombast into this seemingly endless void you are surrounded by. Perhaps-
-[Name, Bill] What are you standing there for, friend!? Howdya even get here? BAAAAH not important, my name is Bill!!!!!! What about yours??!?!
+[Name, Bill] What are you standing there for, friend!? Howdya even get here? 
+[Name, Bill] BAAAAH not important, my name is Bill!!!!!! What about yours??!?!
 Before you can get a word out, your stomach rumbles again. You need food, and soon.
-[Name,Bill] We can skip the pleasantries :O. You sound mighty hungry there, you probably need food… and soon! Hmmmm… do you have any dietary restrictions?
+[Name,Bill] We can skip the pleasantries :O. You sound mighty hungry there, you probably need food… and soon! 
+[Name, Bill] Hmmmm… do you have any dietary restrictions?
 Your stomach grumbles again.
-[Name,Bill]Ok I don’t think you’re too picky then XD. If you go around da island there’s gonna be some runes on the ground. Spooky stuff I know. I’ve been here for a bit so I’m pretty good at understandin’ them. Follow along and play the fun lil’ game that’ll show up and you get a ggl-orb! It’s super tasty stuff. Let me know if you ever find one of them runes and I can help ya out :D!!
-A rambunctious aid, but they have a point, you cannot be too picky right now. Onward then, find a rune and call back your new squid friend.
+[Name,Bill] Ok I don’t think you’re too picky then XD. 
+[Name, Bill] If you go around da island there’s gonna be some runes on the ground. Spooky stuff I know. 
+[Name, Bill] I’ve been here for a bit so I’m pretty good at understandin’ them. 
+[Name, Bill] Follow along and play the fun lil’ game that’ll show up and you get a ggl-orb! It’s super tasty stuff. 
+[Name, Bill] Let me know if you ever find one of them runes and I can help ya out :D!!
+A rambunctious aid, but they have a point, you cannot be too picky right now. 
+Onward then, find a rune and call back your new squid friend.

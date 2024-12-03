@@ -48,6 +48,8 @@ public class ChatPopup : ChatHelper
     // Setup our Input
     private void Awake()
     {
+        CreatePopups();
+        
         if (player == null)
         {
             player = GameObject.FindWithTag("Player").GetComponent<Player>();
@@ -71,6 +73,9 @@ public class ChatPopup : ChatHelper
         // Create UI
         createDialogueUI();
 
+    }
+    
+    private void Start() {
         // Show popup
         displayLine();
     }

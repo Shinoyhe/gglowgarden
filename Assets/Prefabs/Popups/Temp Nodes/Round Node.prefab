@@ -50,9 +50,8 @@ MonoBehaviour:
   player: {fileID: 0}
   cameraController: {fileID: 0}
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
-  conversation: {fileID: 4900000, guid: 4f0bf0e10e06d8545983b0f035a7478c, type: 3}
+  conversation: {fileID: 4900000, guid: 921ca425408abc14c9705ec56883da42, type: 3}
   currentChat:
     lines:
-    - "[Name,Bill] You did it!\r"
-    - 
+    - '[Name,Bill] Let''s goooooo!'
     currentLine: 0

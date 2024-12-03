@@ -123,14 +123,16 @@ MonoBehaviour:
       m_Calls: []
   player: {fileID: 0}
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
-  popupText: {fileID: 4900000, guid: fa029c584ca9c094d81c067cde2ba15b, type: 3}
-  popupLineToUse: 5
+  popupText: {fileID: 4900000, guid: 4c78a194375718d4dac3ec26f0da5a72, type: 3}
+  popupLineToUse: 0
   allPopups:
     lines:
-    - "[Name,Bill] GET BACK HERE!\r"
-    - "What was that rumble...\r"
-    - "[Name,Bill] OVER HERE!\r"
-    - "You don't have enough orbs to leave.\r"
-    - "You are amazeing!\r"
-    - You got a gglow orb!
+    - "[Name,Bill] You got dis >:3\r"
+    - "[Name,Bill] Keep goin' friend! U R nearly there :D\r"
+    - "[Name,Bill] You're doing a-MAZE-ing!!!!!! Oooooohohohohohohoho x3\r"
+    - "[Name,Bill] You aren't lost are ya? D:\r"
+    - "[Name,Bill] You should go that way!\r"
+    - "[Name,Bill] Cause despite all your rage you are still just a cat in a maze
+      ;(\r"
+    - '[Name,Bill] Do you ever feel trapped?'
     currentLine: 0

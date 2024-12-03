@@ -50,8 +50,8 @@ MonoBehaviour:
   player: {fileID: 0}
   cameraController: {fileID: 0}
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
-  conversation: {fileID: 4900000, guid: 4c2e68d9af3c92e4a903caa852f8cfaa, type: 3}
+  conversation: {fileID: 4900000, guid: 6540b2e8ce46bdd4a906d1433d6b9bce, type: 3}
   currentChat:
     lines:
-    - '[Name,Bill] No, no, no! That''s the wrong flower! (or a bug...)'
+    - '[Name,Bill] Erm... what the squidma'
     currentLine: 0

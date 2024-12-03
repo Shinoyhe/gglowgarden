@@ -337,15 +337,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "09558afe-264c-4d07-97ee-2729a9f1137d",
-                    "path": "",
+                    "name": "One Modifier",
+                    "id": "f252d5e2-6065-4acd-b487-0281fe8b59a1",
+                    "path": "OneModifier",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Debug",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "30b169c7-a05e-4926-924a-25db4fdd178a",
+                    "path": "<Keyboard>/quote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "6efce60e-6fad-4606-9dc7-867c118d3868",
+                    "path": "<Keyboard>/backslash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

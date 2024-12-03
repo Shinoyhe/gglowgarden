@@ -7,9 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    [SerializeField] float endCameraTimeMult = 1.5f;
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject mainMenuCamera;
     [SerializeField] GameObject startDialogue;
+    
+    float _defaultBlendTime;
     
     CoreInput core;
     CinemachineBrain brain;
@@ -24,6 +27,7 @@ public class MainMenuManager : MonoBehaviour
         core.UI.Enable();
         
         brain = Camera.main.GetComponent<CinemachineBrain>();
+        _defaultBlendTime = brain.m_DefaultBlend.m_Time;
         
         animator = GetComponent<Animator>();
         
@@ -74,6 +78,7 @@ public class MainMenuManager : MonoBehaviour
     }
     
     IEnumerator ExitGame(){
+        brain.m_DefaultBlend.m_Time = _defaultBlendTime*endCameraTimeMult;
         mainMenuCamera.SetActive(true);
         system.enabled = false;
         core.Player.Disable();

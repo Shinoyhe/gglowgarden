@@ -52,10 +52,14 @@ public class Player : MonoBehaviour
     private Vector2 moveInput;
     private bool pressedInteract;
     private bool pressedDebugButton;
+    bool walking => moveInput.magnitude > 0.2f && canMove;
     
     // Character Controller Default Values
     float ccStepOffset;
     float ccSkinWidth;
+    
+    // Animator
+    Animator animator;
 
     #region "Setup"
     private void Awake()
@@ -73,6 +77,9 @@ public class Player : MonoBehaviour
 
         // Movement
         currentWalkSpeed = 0f;
+        
+        // Animator
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -112,6 +119,8 @@ public class Player : MonoBehaviour
         
         characterController.stepOffset = tiny ? ccStepOffset*tinyMult : ccStepOffset;
         characterController.skinWidth = tiny ? ccSkinWidth*tinyMult : ccSkinWidth;
+        
+        animator.SetBool("Walking", walking);
     }
 
     private void ReadInput()
@@ -146,7 +155,6 @@ public class Player : MonoBehaviour
         }
         
         
-        bool walking = moveInput.magnitude > 0.2f;
 
         // Adjust movement
         if (walking)

@@ -61,6 +61,8 @@ public class ChatNode : ChatHelper, IInteractable
     // Setup our Input
     private void Start()
     {
+        CreatePopups();
+        
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         
         action = player.action;
@@ -71,6 +73,11 @@ public class ChatNode : ChatHelper, IInteractable
     public void Update()
     {
         bool pressedInteract = interactAction.WasPressedThisFrame() && interactAction.ReadValue<float>() == 1;
+        
+        // Debug skip chat
+        if (action.Player.Debug.triggered && conversationStarted){
+            endChat();
+        }
 
         if (!pressedInteract || !conversationStarted) return;
 
@@ -207,7 +214,7 @@ public class ChatNode : ChatHelper, IInteractable
     }
     
     public void InjectText(string text){
-        // CreatePopups();
+        CreatePopups();
         List<string> temp = currentChat.lines.ToList();
         temp.Add(text);
         currentChat.lines = temp.ToArray();

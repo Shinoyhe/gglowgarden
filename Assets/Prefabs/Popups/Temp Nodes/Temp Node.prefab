@@ -50,12 +50,12 @@ MonoBehaviour:
   player: {fileID: 0}
   cameraController: {fileID: 0}
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
-  conversation: {fileID: 4900000, guid: 2b16d6100177b524abab4df217bb5524, type: 3}
+  conversation: {fileID: 4900000, guid: 1c0f89c0df7e650479fdb7ddc46e0e1f, type: 3}
   currentChat:
     lines:
-    - "[Name,Bill] No, no, no! That's the wrong flower! (or a bug...)\r"
-    - "[Name,Bill] You did it!<br>Next,\r"
-    - "[Name,Bill] That's one game down. For the next game\r"
-    - '[Name,Bill] Congratulations cat! You did it! You''re amazing!<br>Next thing
-      is the maze to the right!'
+    - "[Name,Bill] Erm... what the squidma\r"
+    - "[Name,Bill] Let's goooooo!\r"
+    - "[Name,Bill] Yippie!\r"
+    - "[Name,Bill] Poggers!\r"
+    - '[Name,Bill] Yahoo!'
     currentLine: 0

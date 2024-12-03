@@ -1,12 +1,18 @@
-‘What now?’ Always the novel question, but in this case a needed one. Your hunger rests for the first time today. The sun beams down on you, basking in its rays.
+‘What now?’ Always the novel question, but in this case a needed one. 
+Your hunger rests for the first time today. The sun beams down on you, basking in its rays.
 [Name,Bill] It’s really nice isn’t it? The sun beaming down on you… basking in its rays…
-They look at you, and though they lack a traditional mouth you can tell that their smile shines like the sun you stare at. 
-[Name,Bill] It was nice to have you around my feline friend. Just like all the past times, this is where you must take your rest under the tree.
+They look at you, and though they lack a traditional mouth 
+you can tell that their smile shines like the sun you stare at. 
+[Name,Bill] It was nice to have you around my feline friend. 
+[Name,Bill] Just like all the past times, this is where you must take your rest under the tree.
 They stare back at the sun, resting their head against you. Lightly giggling through oncoming tears.
-[Name,Bill] You know… even though I see this same sun everyday, I feel its same warmth everyday, I go through this heartbreak everyday… everyday the warmth of seeing you again is incomparable.
+[Name,Bill] You know… even though I see this same sun everyday, I feel its same warmth everyday, 
+[Name,Bill] I go through this heartbreak everyday… everyday the warmth of seeing you again is incomparable.
 Your eyelids grow heavy, and you feel like you have to lay down.
 [Name,Bill] I’ve got you… don’t worry. This happens everytime too.
-They give you a shoulder to lean on, as they lay you down under the same tree that you once awoke from. 
-[Name,Bill]I’ll be here for you when you wake up next, and the time after that… and after that… you won’t recognize me. You never do, and that’s ok :) I’ll see you tomorrow my g-
+They give you a shoulder to lean on, 
+as they lay you down under the same tree that you once awoke from. 
+[Name,Bill]I’ll be here for you when you wake up next, and the time after that… and after that… 
+[Name,Bill] you won’t recognize me. You never do, and that’s ok :) I’ll see you tomorrow my g-
 They choke on their words.
 [Name,Bill] My G-Glow Garden ;(

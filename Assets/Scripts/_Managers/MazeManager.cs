@@ -47,8 +47,8 @@ public class MazeManager : MonoBehaviour, IInteractable
     }
     
     public void GetFragment(){
+        Instantiate(gglowFragmentPopup).GetComponent<ChatPopup>().popupLineToUse = numgglowFragments;
         numgglowFragments++;
-        Instantiate(gglowFragmentPopup);
         // uiManager.DisplayText(fragmentText);
         uiManager.SetUITextDisplay($"gglow Orbs:\n{numgglowFragments}/{_maxgGlowFragments}");
     }
