@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using FMODUnity;
 
 [Serializable]
 public struct TextTheme
@@ -26,6 +27,7 @@ public class DisplayText : MonoBehaviour
     public TextTheme npcTheme;
 
     [Header("Audio Clips")]
+    public int numTalkingClips = 7;
     public AudioClip[] talkingClips;
     public AudioClip punctuation;
 
@@ -36,14 +38,14 @@ public class DisplayText : MonoBehaviour
 
 
     private int charactersForThisLine = 0;
-    private AudioSource source;
+    // private AudioSource source;
     [HideInInspector]
     public bool finishedTypingText = false;
     private Tags currentLineTags;
 
     private void Awake()
     {
-        source = GetComponent<AudioSource>();
+        // source = GetComponent<AudioSource>();
     }
 
     public void setupDialogueText(string text, Tags currentTags)
@@ -127,21 +129,23 @@ public class DisplayText : MonoBehaviour
 
     void playTalkSound(char currentCharacter)
     {
-        if (source.isPlaying)
-        {
-            source.Stop();
-        }
+        // if (source.isPlaying)
+        // {
+        //     source.Stop();
+        // }
 
-        source.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+        float pitch = UnityEngine.Random.Range(minPitch, maxPitch);
 
         if (char.IsLetter(currentCharacter))
         {
-            int audioIndex = currentCharacter % talkingClips.Length;
-            source.PlayOneShot(talkingClips[audioIndex]);
+            // int audioIndex = currentCharacter % talkingClips.Length;
+            // source.PlayOneShot(talkingClips[audioIndex]);
+            SoundManager.Instance.PlayLetterTrack((LetterSFX)(currentCharacter % numTalkingClips), pitch);
         }
         else
         {
-            source.PlayOneShot(punctuation);
+            // source.PlayOneShot(punctuation);
+            SoundManager.Instance.PlayLetterTrack(LetterSFX.PUNCTUATION, pitch);
         }
     }
 }

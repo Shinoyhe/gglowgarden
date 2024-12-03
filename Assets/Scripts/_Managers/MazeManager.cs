@@ -51,6 +51,7 @@ public class MazeManager : MonoBehaviour, IInteractable
         numgglowFragments++;
         // uiManager.DisplayText(fragmentText);
         uiManager.SetUITextDisplay($"gglow Orbs:\n{numgglowFragments}/{_maxgGlowFragments}");
+        SoundManager.Instance.PlaygglowOrbSFX();
     }
     
     public void EnterMaze(){
