@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
@@ -49,7 +50,7 @@ public class ChatPopup : ChatHelper
     {
         if (player == null)
         {
-            player = GameObject.Find("TestPlayer").GetComponent<Player>();
+            player = GameObject.FindWithTag("Player").GetComponent<Player>();
         }
 
         if (player.inConversation) { 
@@ -57,7 +58,7 @@ public class ChatPopup : ChatHelper
             return;
         }
 
-        action = new CoreInput();
+        action = player.action;
         interactAction = action.Player.Interact;
 
         // Freeze player
@@ -65,7 +66,7 @@ public class ChatPopup : ChatHelper
         player.inConversation = true;
 
         // Setup interact UI
-        interactAction.Enable();
+        // interactAction.Enable();
 
         // Create UI
         createDialogueUI();
@@ -141,10 +142,17 @@ public class ChatPopup : ChatHelper
         }
 
         // Stop interact
-        interactAction.Disable();
+        // interactAction.Disable();
 
         // Trigger any callbacks
         callback.Invoke();
+        
+        StartCoroutine(WaitThenDestroy());
+    }
+    
+    IEnumerator WaitThenDestroy(){
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
     }
     
     public void CreatePopups(){

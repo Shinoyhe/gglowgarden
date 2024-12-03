@@ -20,6 +20,6 @@ public class GglowOrbFragment : MonoBehaviour, IInteractable
     
     public void Interact(){
         _mazeManager.GetFragment();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

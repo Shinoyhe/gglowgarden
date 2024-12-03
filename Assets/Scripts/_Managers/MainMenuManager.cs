@@ -9,6 +9,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject mainMenuCamera;
+    [SerializeField] GameObject startDialogue;
     
     CoreInput core;
     CinemachineBrain brain;
@@ -35,6 +36,12 @@ public class MainMenuManager : MonoBehaviour
         
     }
     
+    // private void OnDisable()
+    // {
+    //     core.Player.Disable();
+    //     core.UI.Disable();
+    // }
+    
     public void StartGame(){
         StartCoroutine(EnterGame());
         // SceneManager.LoadScene(1);
@@ -51,6 +58,7 @@ public class MainMenuManager : MonoBehaviour
         system.enabled = true;
         core.Player.Enable();
         mainMenu.SetActive(false);
+        Instantiate(startDialogue);
     }
     
     public void Quit(){

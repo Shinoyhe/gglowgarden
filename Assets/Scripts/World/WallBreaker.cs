@@ -17,6 +17,10 @@ public class WallBreaker : MonoBehaviour
     }
     
     public void BreakWall(){
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+    
+    public void BuildWall(){
+        gameObject.SetActive(true);
     }
 }

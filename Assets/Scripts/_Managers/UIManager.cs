@@ -7,26 +7,34 @@ public class UIManager : MonoBehaviour
 {
     [Header("Pause Menu")]
     [SerializeField] GameObject PauseMenu;
+    [SerializeField] TextMeshProUGUI flowerText;
     [SerializeField] GameObject keyboardControls;
     [SerializeField] GameObject gamepadControls;
+    
+    [Header("Flower Collectables")]
+    [SerializeField] GameObject flowerPopup;
+    [SerializeField, ReadOnly] int flowersCollected = 0;
     
     [Header("Temp Text")]
     [SerializeField] GameObject textDisplay;
     [SerializeField] TextMeshProUGUI tempText;
-    [SerializeField] TextMeshProUGUI tempUIText;
+    [SerializeField] TextMeshProUGUI uiText;
     
     CoreInput core;
+    string flowerString = "Flowers Collected: ";
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         core = GameObject.FindWithTag("Player").GetComponent<Player>().action;
+        
+        Resume();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((core.UI.Pause.triggered || core.UI.Cancel.triggered || core.UI.Submit.triggered) && Time.timeScale == 0f){
+        if ((core.UI.Pause.triggered || core.UI.Cancel.triggered) && Time.timeScale == 0f){
             Resume();
         }
         else if (core.Player.Pause.triggered){
@@ -36,6 +44,7 @@ public class UIManager : MonoBehaviour
     
     void Pause(){
         PauseMenu.SetActive(true);
+        flowerText.text = flowerString+flowersCollected;
         Stop();
     }
     
@@ -68,10 +77,11 @@ public class UIManager : MonoBehaviour
     }
     
     public void SetUITextDisplay(string text){
-        tempUIText.text = text;
+        uiText.text = text;
     }
     
-    public void AddSphere(){
-        
+    public void AddFlower(){
+        Instantiate(flowerPopup);
+        flowersCollected++;
     }
 }

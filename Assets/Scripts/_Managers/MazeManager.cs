@@ -5,18 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class MazeManager : MonoBehaviour, IInteractable
 {
-    [SerializeField] int gglowFragments = 0;
-    [SerializeField, TextArea(1,5)] string earlyText = "You don't have enough orbs to leave.";
-    [SerializeField, TextArea(1,5)] string winText = "You are amazeing!";
-    [SerializeField, TextArea(1,5)] string fragmentText = "You got a gglow orb!";
-    [SerializeField] UIManager tempUI;
+    [Header("gglow Orb Fragments")]
+    [SerializeField] List<GameObject> gglowOrbFragments;
+    [SerializeField, ReadOnly] int numgglowFragments = 0;
     
-    int _maxgGlowFragments = 7;
+    [Header("Shrinking")]
+    [SerializeField] float shrinkTime = 2;
+    [SerializeField] Transform shrinkEnterLocationTransform;
+    Vector3 shrinkEnterLocation => shrinkEnterLocationTransform.position;
+    // [SerializeField] Vector3 shrinkExitLocation;
+    [SerializeField] GameObject mazeCamera;
+    
+    [Header("Popups")]
+    [SerializeField] GameObject earlyPopup;
+    [SerializeField] GameObject winPopup, gglowFragmentPopup;
+    
+    [Header("Squids")]
+    [SerializeField] GameObject startSquid;
+    [SerializeField] GameObject endSquid;
+    // [SerializeField, TextArea(1,5)] string earlyText = "You don't have enough orbs to leave.";
+    // [SerializeField, TextArea(1,5)] string winText = "You are amazeing!";
+    // [SerializeField, TextArea(1,5)] string fragmentText = "You got a gglow orb!";
+    
+    int _maxgGlowFragments => gglowOrbFragments.Count;
+    
+    Player player;
+    UIManager uiManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
+        DisableMaze();
     }
 
     // Update is called once per frame
@@ -26,23 +47,89 @@ public class MazeManager : MonoBehaviour, IInteractable
     }
     
     public void GetFragment(){
-        gglowFragments++;
-        tempUI.DisplayText(fragmentText);
-        tempUI.SetUITextDisplay($"gglow Orbs:\n{gglowFragments}/{_maxgGlowFragments}");
+        numgglowFragments++;
+        Instantiate(gglowFragmentPopup);
+        // uiManager.DisplayText(fragmentText);
+        uiManager.SetUITextDisplay($"gglow Orbs:\n{numgglowFragments}/{_maxgGlowFragments}");
+    }
+    
+    public void EnterMaze(){
+        StartCoroutine(StartMaze());
+    }
+    
+    public void ExitMaze(){
+        startSquid.SetActive(false);
+        endSquid.SetActive(true);
+        StartCoroutine(EndMaze());
     }
     
     public void Interact(){
-        if(gglowFragments>=_maxgGlowFragments){
-            tempUI.DisplayText(winText);
-            StartCoroutine(EndGame());
+        if(numgglowFragments>=_maxgGlowFragments){
+            GameObject popup = Instantiate(winPopup);
+            // uiManager.DisplayText(winText);
+            popup.GetComponent<ChatPopup>().callback.AddListener(ExitMaze);
         }
         else {
-            tempUI.DisplayText(earlyText);
+            Instantiate(earlyPopup);
+            // uiManager.DisplayText(earlyText);
         }
     }
     
-    IEnumerator EndGame(){
-        yield return new WaitForSeconds(0.1f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    void DisableMaze(){
+        gameObject.layer = 0;
+        foreach(GameObject gO in gglowOrbFragments){
+            gO.layer = 0;
+        }
+    }
+    
+    void EnableMaze(){
+        gameObject.layer = 7;
+        foreach(GameObject gO in gglowOrbFragments){
+            gO.layer = 7;
+        }
+    }
+    
+    IEnumerator StartMaze(){
+        player.action.Disable();
+        player.ToggleMovement(false);
+        player.tiny = true;
+        mazeCamera.SetActive(true);
+        Vector3 initialPosition = player.transform.position;
+        Vector3 initialScale = player.transform.localScale;
+        Vector3 scaleGoal = Vector3.one * player.tinyMult;
+        float shrinkingTime = 0f;
+        while (shrinkingTime < 1f){
+            shrinkingTime += Time.deltaTime/shrinkTime;
+            player.transform.localScale = Vector3.Lerp(initialScale, scaleGoal, shrinkingTime);
+            player.transform.position = Vector3.Lerp(initialPosition, shrinkEnterLocation, shrinkingTime);
+            yield return null;
+        }
+        uiManager.SetUITextDisplay($"gglow Orbs:\n{numgglowFragments}/{_maxgGlowFragments}");
+        player.ToggleMovement(true);
+        player.action.Enable();
+        EnableMaze();
+    }
+    
+    IEnumerator EndMaze(){
+        player.action.Disable();
+        player.ToggleMovement(false);
+        DisableMaze();
+        mazeCamera.SetActive(false);
+        Vector3 initialPosition = player.transform.position;
+        Vector3 posGoal = player.transform.position+Vector3.up;
+        Vector3 initialScale = player.transform.localScale;
+        Vector3 scaleGoal = Vector3.one;
+        float shrinkingTime = 0f;
+        while (shrinkingTime < 1f){
+            shrinkingTime += Time.deltaTime/shrinkTime;
+            player.transform.localScale = Vector3.Lerp(initialScale, scaleGoal, shrinkingTime);
+            player.transform.position = Vector3.Lerp(initialPosition, posGoal, shrinkingTime);
+            yield return null;
+        }
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        player.tiny = false;
+        uiManager.SetUITextDisplay("");
+        player.ToggleMovement(true);
+        player.action.Enable();
     }
 }

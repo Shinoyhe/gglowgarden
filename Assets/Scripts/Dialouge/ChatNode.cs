@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
@@ -56,10 +59,13 @@ public class ChatNode : ChatHelper, IInteractable
     }
 
     // Setup our Input
-    private void Awake()
+    private void Start()
     {
-        action = new CoreInput();
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        
+        action = player.action;
         interactAction = action.Player.Interact;
+        cameraController = GameObject.FindWithTag("CameraController").GetComponent<CameraSwapper>();
     }
 
     public void Update()
@@ -94,7 +100,7 @@ public class ChatNode : ChatHelper, IInteractable
         player.inConversation = true;
 
         // Setup interact UI
-        interactAction.Enable();
+        // interactAction.Enable();
 
         // Create UI
         createDialogueUI();
@@ -166,6 +172,11 @@ public class ChatNode : ChatHelper, IInteractable
 
     public void endChat()
     {
+        StartCoroutine(CloseChat());
+    }
+    
+    IEnumerator CloseChat(){
+        yield return null;
         // UnFreeze player
         player.ToggleMovement(true);
         player.inConversation = false;
@@ -177,7 +188,7 @@ public class ChatNode : ChatHelper, IInteractable
         }
 
         // Stop interact
-        interactAction.Disable();
+        // interactAction.Disable();
 
         // Move Camera Back
         cameraController.endConversation();
@@ -189,9 +200,17 @@ public class ChatNode : ChatHelper, IInteractable
         // Trigger any callbacks
         callback.Invoke();
     }
+    
     public void CreatePopups(){
         currentChat.lines = conversation.text.Split('\n');
         lastConvo = conversation.text;
+    }
+    
+    public void InjectText(string text){
+        // CreatePopups();
+        List<string> temp = currentChat.lines.ToList();
+        temp.Add(text);
+        currentChat.lines = temp.ToArray();
     }
 }
 
