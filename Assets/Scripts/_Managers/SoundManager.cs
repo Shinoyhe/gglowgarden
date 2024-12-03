@@ -83,6 +83,7 @@ public class SoundManager : MonoBehaviour
         masterBus = RuntimeManager.GetBus(masterBusPath);
         // musicBus = RuntimeManager.GetBus(musicBusPath);
         // sfxBus = RuntimeManager.GetBus(sfxBusPath);
+        SceneManager.sceneLoaded += (_, _) => PlayMasterOST();
         SceneManager.sceneUnloaded += (_) => StopCurrentSong();
     }
     
