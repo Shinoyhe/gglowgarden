@@ -72,6 +72,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 /.vscode
+Assets/Plugins/FMOD/platforms/win/lib/x86_64/fmodstudioL.dll
+fmod_editor.log
+
 
 # Never ignore DLLs in the FMOD subfolder.
 !/[Aa]ssets/Plugins/FMOD/**/lib/*
