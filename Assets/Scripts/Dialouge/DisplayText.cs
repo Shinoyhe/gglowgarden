@@ -27,7 +27,7 @@ public class DisplayText : MonoBehaviour
     public TextTheme npcTheme;
 
     [Header("Audio Clips")]
-    public int numTalkingClips = 7;
+    public int numTalkingClips = 6;
     public AudioClip[] talkingClips;
     public AudioClip punctuation;
 

@@ -7,6 +7,7 @@ public class MazeManager : MonoBehaviour, IInteractable
 {
     [Header("gglow Orb Fragments")]
     [SerializeField] List<GameObject> gglowOrbFragments;
+    [SerializeField] List<GameObject> collectibleFlowers;
     [SerializeField, ReadOnly] int numgglowFragments = 0;
     
     [Header("Shrinking")]
@@ -81,11 +82,17 @@ public class MazeManager : MonoBehaviour, IInteractable
         foreach(GameObject gO in gglowOrbFragments){
             gO.layer = 0;
         }
+        foreach(GameObject gO in collectibleFlowers){
+            gO.layer = 0;
+        }
     }
     
     void EnableMaze(){
         gameObject.layer = 7;
         foreach(GameObject gO in gglowOrbFragments){
+            gO.layer = 7;
+        }
+        foreach(GameObject gO in collectibleFlowers){
             gO.layer = 7;
         }
     }
