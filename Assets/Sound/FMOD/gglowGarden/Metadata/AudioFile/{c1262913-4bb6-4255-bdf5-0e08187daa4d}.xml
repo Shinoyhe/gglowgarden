@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{c1262913-4bb6-4255-bdf5-0e08187daa4d}">
+		<property name="assetPath">
+			<value>Music/mystery-music-loop-226835.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>27.506938775510203</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{da27206f-061b-446b-acbe-f266b939a432}</destination>
+		</relationship>
+	</object>
+</objects>
