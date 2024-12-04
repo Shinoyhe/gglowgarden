@@ -1,3 +1,7 @@
 [Name,Bill] GET BACK HERE!
 What was that rumble...
 [Name,Bill] OVER HERE!
+You don't have enough orbs to leave.
+You finished! Now, return to normal and I'll give you the orb!
+You got a gglow orb!
+WASD to move. SPACE to interact. Please interact with the tree in front of you for the best experience.
