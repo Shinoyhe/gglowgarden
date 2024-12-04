@@ -1,0 +1,3 @@
+[Name,Bill] Go through this small maze and pick up 7 Dra- *ahem* gglow orbs and reach the purple door at the end.
+[Name,Bill] If you do, I'll give you some food!
+[Name,Bill] I'll shrink you so you can get inside.

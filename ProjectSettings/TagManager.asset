@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MazeManager
+  - CameraController
+  - UIManager
+  - SquidSaysManager
   layers:
   - Default
   - TransparentFX
@@ -11,8 +15,9 @@ TagManager:
   - 
   - Water
   - UI
+  - Maze
+  - Interactable
   - camera
-  - 
   - 
   - 
   - 

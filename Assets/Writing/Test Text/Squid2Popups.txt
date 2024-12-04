@@ -1,0 +1,4 @@
+[Name,Bill] No, no, no! That's the wrong flower! (or a bug...)
+[Name,Bill] You did it!<br>Next,
+[Name,Bill] That's one game down. For the next game
+[Name,Bill] Congratulations cat! You did it! You're amazing!<br>Next thing is the maze to the right!
