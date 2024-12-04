@@ -62,8 +62,8 @@ public class SoundManager : MonoBehaviour
     private string letterSFX = "event:/SFX/Letters";
     // Misc SFX Paths
     private string gglowOrbSFX = "event:/SFX/gglowOrb";
-    private string squidSaysSFX = "event:/SFX/Dungeon/squidSays";
-    private string squidInteractSFX = "event:/SFX/Dungeon/squidInteract";
+    private string squidSaysSFX = "event:/SFX/squidSays";
+    private string squidInteractSFX = "event:/SFX/squidInteract";
     #endregion
 
     void Awake()

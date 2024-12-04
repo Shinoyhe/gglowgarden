@@ -102,6 +102,8 @@ public class ChatNode : ChatHelper, IInteractable
     {
         if (conversationStarted || player.inConversation) return;
 
+        SoundManager.Instance.PlaySquidInteractSFX();
+
         // Freeze player
         player.ToggleMovement(false);
         player.inConversation = true;

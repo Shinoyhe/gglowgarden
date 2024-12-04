@@ -181,6 +181,7 @@ public class SquidSays : MonoBehaviour
             Display(SquidMessages.WHOLE);
         }
         else if(_selectedColors[0] == (int)fc){
+            SoundManager.Instance.PlaySquidSaysSFX();
             _colorDisplay += Color2String((FlowerColor)_selectedColors[0])+" ";
             _selectedColors.RemoveAt(0);
             // If end of sequence create new sequence

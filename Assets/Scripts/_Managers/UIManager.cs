@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [Header("Pause Menu")]
     [SerializeField] GameObject PauseMenu;
     [SerializeField] TextMeshProUGUI flowerText;
-    [SerializeField] GameObject keyboardControls;
-    [SerializeField] GameObject gamepadControls;
+    // [SerializeField] GameObject keyboardControls;
+    // [SerializeField] GameObject gamepadControls;
+    [SerializeField] Slider masterSlider;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider sfxSlider;
     
     [Header("Flower Collectables")]
     [SerializeField] GameObject flowerPopup;
@@ -20,6 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI tempText;
     [SerializeField] TextMeshProUGUI uiText;
     
+    SoundManager soundManager => SoundManager.Instance;
     CoreInput core;
     string flowerString = "Flowers Collected: ";
     
@@ -27,6 +32,10 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         core = GameObject.FindWithTag("Player").GetComponent<Player>().action;
+        
+        masterSlider.onValueChanged.AddListener(ChangeMasterVolume);
+        musicSlider.onValueChanged.AddListener(ChangeMusicVolume);
+        sfxSlider.onValueChanged.AddListener(ChangeSFXVolume);
         
         Resume();
     }
@@ -40,6 +49,24 @@ public class UIManager : MonoBehaviour
         else if (core.Player.Pause.triggered){
             Pause();
         }
+    }
+    
+    private void OnDestroy() {
+        masterSlider.onValueChanged.RemoveAllListeners();
+        musicSlider.onValueChanged.RemoveAllListeners();
+        sfxSlider.onValueChanged.RemoveAllListeners();
+    }
+    
+    void ChangeMasterVolume(float volume){
+        soundManager.masterVolume = volume;
+    }
+    
+    void ChangeMusicVolume(float volume){
+        soundManager.musicVolume = volume;
+    }
+    
+    void ChangeSFXVolume(float volume){
+        soundManager.sfxVolume = volume;
     }
     
     void Pause(){
