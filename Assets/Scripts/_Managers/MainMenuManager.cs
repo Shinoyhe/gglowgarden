@@ -32,6 +32,8 @@ public class MainMenuManager : MonoBehaviour
         animator = GetComponent<Animator>();
         
         system = EventSystem.current;
+        
+        SoundManager.Instance.PlayMasterOST();
     }
 
     // Update is called once per frame

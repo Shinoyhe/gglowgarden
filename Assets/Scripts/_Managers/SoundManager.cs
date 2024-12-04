@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
-using System.Linq;
 using UnityEngine.SceneManagement;
 
 public enum LetterSFX
@@ -81,15 +80,21 @@ public class SoundManager : MonoBehaviour
         }
         
         masterBus = RuntimeManager.GetBus(masterBusPath);
-        // musicBus = RuntimeManager.GetBus(musicBusPath);
-        // sfxBus = RuntimeManager.GetBus(sfxBusPath);
+        musicBus = RuntimeManager.GetBus(musicBusPath);
+        sfxBus = RuntimeManager.GetBus(sfxBusPath);
         SceneManager.sceneLoaded += (_, _) => PlayMasterOST();
         SceneManager.sceneUnloaded += (_) => StopCurrentSong();
+        
+        if (!RuntimeManager.HasBankLoaded("Master"))
+        {
+            RuntimeManager.LoadBank("Master");
+            Debug.Log("Master Bank Loaded");
+        }
     }
     
-    private void Start() {
-        PlayMasterOST();
-    }
+    // private void Start() {
+    //     PlayMasterOST();
+    // }
 
     // Update is called once per frame
     void Update()
