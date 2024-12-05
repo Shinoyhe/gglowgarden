@@ -1,7 +1,7 @@
 [Name,Bill] That's one fragment! You got dis >:3
 [Name,Bill] You're doing a-MAZE-ing!!!!!! Oooooohohohohohohoho x3
 [Name,Bill] You aren't lost are ya? D:
-[Name,Bill] Keep goin' friend! U R nearly there :D
+[Name,Bill] Keep goin' friend! U R nearly there :p
 [Name,Bill] You should go that way!
 [Name,Bill] Cause despite all your rage you are still just a cat in a maze ;(
 [Name,Bill] Do you ever feel trapped?
