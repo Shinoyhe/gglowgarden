@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class ChatPopup : ChatHelper
     [Header("Set Popup Reference")]
     public TextAsset popupText;
     public int popupLineToUse = 0;
+
+    public int[] alternativeLine = { };
 
     [Space]
     [Space]
@@ -120,11 +123,21 @@ public class ChatPopup : ChatHelper
 
     private void displayLine()
     {
-        if (popupLineToUse >= allPopups.lines.Length)
+        int lineUsed = popupLineToUse;
+
+        if(alternativeLine.Length > 0)
+        {
+            int[] options = alternativeLine;
+            options.Append(popupLineToUse);
+            int x = UnityEngine.Random.Range(0, options.Length);
+            lineUsed = options[x];
+        }
+
+        if (lineUsed >= allPopups.lines.Length)
         {
             Debug.LogError("Trying to use popup number outside of given popup list!");
         }
-        string currentTextLine = allPopups.lines[popupLineToUse];
+        string currentTextLine = allPopups.lines[lineUsed];
 
         // Filter tags
         Tags currentTags = getTags(currentTextLine);
