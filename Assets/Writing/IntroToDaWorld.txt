@@ -1,3 +1,4 @@
+WASD to move. Press space or f to interact. Good luck :)
 You awaken in an unfamiliar place, laying down protected by the shade of a tree. 
 You look out into the vastness of the space around you with this floating island being the only semblance of life. 
 Your stomach growls, you must have been asleep for a long time. 
