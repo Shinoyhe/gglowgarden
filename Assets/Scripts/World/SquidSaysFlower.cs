@@ -11,6 +11,7 @@ public class SquidSaysFlower : MonoBehaviour, IInteractable
     void Start()
     {
         squidSaysManager = GameObject.FindWithTag("SquidSaysManager").GetComponent<SquidSays>();
+        squidSaysManager.flowers.Add(gameObject);
     }
 
     // Update is called once per frame

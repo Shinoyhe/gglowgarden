@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
 
     // Input Trackers
     private Vector2 moveInput;
+    private float moveMagnitude;
     private bool pressedInteract;
     private bool pressedDebugButton;
     bool walking => moveInput.magnitude > 0.2f && canMove;
@@ -121,11 +122,14 @@ public class Player : MonoBehaviour
         characterController.skinWidth = tiny ? ccSkinWidth*tinyMult : ccSkinWidth;
         
         animator.SetBool("Walking", walking);
+        animator.SetFloat("Walking Speed", currentWalkSpeed/minWalkSpeed);
     }
 
     private void ReadInput()
     {
-        moveInput = moveAction.ReadValue<Vector2>().normalized;
+        var temp = moveAction.ReadValue<Vector2>();
+        moveInput = temp.normalized;
+        moveMagnitude = temp.magnitude;
         pressedInteract = interactAction.WasPressedThisFrame() && interactAction.ReadValue<float>() == 1;
         pressedDebugButton = debugAction.WasPressedThisFrame() && debugAction.ReadValue<float>() == 1;
     }
@@ -166,7 +170,7 @@ public class Player : MonoBehaviour
             currentWalkSpeed -= _walkDeceleration * Time.deltaTime;
         }
 
-        currentWalkSpeed = Mathf.Clamp(currentWalkSpeed, _minWalkSpeed, _maxWalkSpeed);
+        currentWalkSpeed = Mathf.Clamp(currentWalkSpeed, _minWalkSpeed, _maxWalkSpeed)*moveMagnitude;
 
         // Move
         Vector3 move = new Vector3(moveInput.x, verticalVelocity, moveInput.y);
@@ -235,6 +239,7 @@ public class Player : MonoBehaviour
     }
     
     void HighlightInteractable(bool highlight){
+        if (inConversation) highlight = false;
         interactIndicator.SetActive(highlight);
     }
 

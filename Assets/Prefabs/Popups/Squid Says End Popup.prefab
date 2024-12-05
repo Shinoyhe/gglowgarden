@@ -125,7 +125,8 @@ MonoBehaviour:
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
   popupText: {fileID: 4900000, guid: 6947c4982e01da746a4cb12e804f3f13, type: 3}
   popupLineToUse: 0
+  alternativeLine: 
   allPopups:
     lines:
-    - '[Name,Bill] You''re all done! Come back here for the ggl-orb!'
+    - The flowers no longer illuminate, you should eat the ggl-orb.
     currentLine: 0

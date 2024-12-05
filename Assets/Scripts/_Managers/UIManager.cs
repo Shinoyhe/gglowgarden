@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -11,9 +13,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI flowerText;
     // [SerializeField] GameObject keyboardControls;
     // [SerializeField] GameObject gamepadControls;
+    [SerializeField] Button resumeButton;
     [SerializeField] Slider masterSlider;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
+    [SerializeField] GameObject quitMenu;
+    [SerializeField] Button quitNoButton;
     
     [Header("Flower Collectables")]
     [SerializeField] GameObject flowerPopup;
@@ -26,16 +31,22 @@ public class UIManager : MonoBehaviour
     
     SoundManager soundManager => SoundManager.Instance;
     CoreInput core;
+    EventSystem eventSystem;
+    
     string flowerString = "Flowers Collected: ";
     
     // Start is called before the first frame update
     void Awake()
     {
         core = GameObject.FindWithTag("Player").GetComponent<Player>().action;
+        core.UI.Navigate.performed += CheckSelection;
+        core.UI.Submit.started += CheckSelection;
         
         masterSlider.onValueChanged.AddListener(ChangeMasterVolume);
         musicSlider.onValueChanged.AddListener(ChangeMusicVolume);
         sfxSlider.onValueChanged.AddListener(ChangeSFXVolume);
+        
+        eventSystem = EventSystem.current;
         
         Resume();
     }
@@ -55,6 +66,20 @@ public class UIManager : MonoBehaviour
         masterSlider.onValueChanged.RemoveAllListeners();
         musicSlider.onValueChanged.RemoveAllListeners();
         sfxSlider.onValueChanged.RemoveAllListeners();
+        
+        core.UI.Navigate.performed -= CheckSelection;
+        core.UI.Submit.started -= CheckSelection;
+    }
+    
+    void CheckSelection(InputAction.CallbackContext context){
+        if(Time.deltaTime == 0 && !eventSystem.currentSelectedGameObject){
+            if (quitMenu.activeInHierarchy){
+                quitNoButton.Select();
+            }
+            else {
+                resumeButton.Select();
+            }
+        }
     }
     
     void ChangeMasterVolume(float volume){
@@ -71,6 +96,7 @@ public class UIManager : MonoBehaviour
     
     void Pause(){
         PauseMenu.SetActive(true);
+        resumeButton.Select();
         flowerText.text = flowerString+flowersCollected;
         Stop();
     }
@@ -91,6 +117,7 @@ public class UIManager : MonoBehaviour
     void CloseUI(){
         CloseText();
         PauseMenu.SetActive(false);
+        quitMenu.SetActive(false);
     }
     
     public void DisplayText(string text){

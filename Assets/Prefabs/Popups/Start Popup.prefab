@@ -124,15 +124,14 @@ MonoBehaviour:
   player: {fileID: 0}
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
   popupText: {fileID: 4900000, guid: fa029c584ca9c094d81c067cde2ba15b, type: 3}
-  popupLineToUse: 6
+  popupLineToUse: 4
   allPopups:
     lines:
     - "[Name,Bill] GET BACK HERE!\r"
     - "What was that rumble...\r"
     - "[Name,Bill] OVER HERE!\r"
-    - "You don't have enough orbs to leave.\r"
-    - "You are amazeing!\r"
     - "You got a gglow orb!\r"
-    - WASD to move. SPACE to interact. Please interact with the tree in front of
-      you for the best experience.
+    - "WASD to move. SPACE to interact. Please interact with the tree in front of
+      you for the best experience.\r"
+    - 
     currentLine: 0

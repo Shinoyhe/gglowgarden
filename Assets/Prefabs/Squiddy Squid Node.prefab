@@ -14,15 +14,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4242382fde9c30b4da6747f2f0c34835, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.53
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4242382fde9c30b4da6747f2f0c34835, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4242382fde9c30b4da6747f2f0c34835, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.56
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4242382fde9c30b4da6747f2f0c34835, type: 3}
       propertyPath: m_LocalRotation.w
@@ -158,6 +158,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4242382fde9c30b4da6747f2f0c34835, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7096604352133364099}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4242382fde9c30b4da6747f2f0c34835, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1377180226089506882}
   m_SourcePrefab: {fileID: 100100000, guid: 4242382fde9c30b4da6747f2f0c34835, type: 3}
 --- !u!1 &7033226871068181443 stripped
 GameObject:
@@ -214,6 +217,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1377180226089506882}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Teleport
+          m_BoolArgument: 0
+        m_CallState: 2
   player: {fileID: 0}
   cameraController: {fileID: 0}
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
@@ -223,3 +238,24 @@ MonoBehaviour:
     - '[Name,Bill] You seem hungry. I''ll feed you if you help me with some stuff.
       Follow me north.'
     currentLine: 0
+--- !u!95 &1377180226089506882
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7033226871068181443}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d23ddf19178e2704b9b084ec7b756144, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

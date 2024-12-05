@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7603059049317315879}
   - component: {fileID: 6639531091468983906}
   - component: {fileID: 7220956126878705018}
-  - component: {fileID: 3405103505509386396}
+  - component: {fileID: 5163072518556460023}
   m_Layer: 0
   m_Name: Maze Win Popup
   m_TagString: Untagged
@@ -106,7 +106,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3405103505509386396
+--- !u!114 &5163072518556460023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,22 +115,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4812240445365214980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8d44619d16a3e246b299d6846c69ad1, type: 3}
+  m_Script: {fileID: 11500000, guid: 21eb276a6e720d548ba603ee9817d4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   callback:
     m_PersistentCalls:
       m_Calls: []
   player: {fileID: 0}
+  cameraController: {fileID: 0}
   dialoguePrefab: {fileID: 5008151156364874545, guid: b1fd25039d9a93a40bb77779f4540bb8, type: 3}
-  popupText: {fileID: 4900000, guid: fa029c584ca9c094d81c067cde2ba15b, type: 3}
-  popupLineToUse: 4
-  allPopups:
+  conversation: {fileID: 4900000, guid: 27cfe76bb9302b84495cc69542a579b2, type: 3}
+  currentChat:
     lines:
-    - "[Name,Bill] GET BACK HERE!\r"
-    - "What was that rumble...\r"
-    - "[Name,Bill] OVER HERE!\r"
-    - "You don't have enough orbs to leave.\r"
-    - "You are amazeing!\r"
-    - You got a gglow orb!
+    - "[Name,Bill] Hopefully you'll return to normal in no time x3 \r"
+    - '[Name,Bill] I''ll work on making the orb from the fragments >:3'
     currentLine: 0

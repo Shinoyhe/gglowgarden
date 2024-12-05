@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject mainMenuCamera;
     [SerializeField] GameObject startDialogue;
+    [SerializeField] Button startButton;
+    [SerializeField] Button returnButton;
     
     float _defaultBlendTime;
     
@@ -26,12 +30,17 @@ public class MainMenuManager : MonoBehaviour
         core.Player.Disable();
         core.UI.Enable();
         
+        core.UI.Navigate.performed += CheckSelection;
+        core.UI.Submit.canceled += CheckSelection;
+        
         brain = Camera.main.GetComponent<CinemachineBrain>();
         _defaultBlendTime = brain.m_DefaultBlend.m_Time;
         
         animator = GetComponent<Animator>();
         
         system = EventSystem.current;
+        
+        startButton.Select();
         
         SoundManager.Instance.PlayMasterOST();
     }
@@ -42,11 +51,22 @@ public class MainMenuManager : MonoBehaviour
         
     }
     
-    // private void OnDisable()
-    // {
-    //     core.Player.Disable();
-    //     core.UI.Disable();
-    // }
+    void CheckSelection(InputAction.CallbackContext context){
+        if(mainMenuCamera.activeSelf && !system.currentSelectedGameObject){
+            if (returnButton.gameObject.activeInHierarchy){
+                returnButton.Select();
+            }
+            else {
+                startButton.Select();
+            }
+        }
+    }
+    
+    private void OnDisable()
+    {
+        core.UI.Navigate.performed -= CheckSelection;
+        core.UI.Submit.canceled -= CheckSelection;
+    }
     
     public void StartGame(){
         StartCoroutine(EnterGame());

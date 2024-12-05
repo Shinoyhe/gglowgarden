@@ -9,12 +9,12 @@ public class MazeManager : MonoBehaviour, IInteractable
     [SerializeField] List<GameObject> gglowOrbFragments;
     [SerializeField] List<GameObject> collectibleFlowers;
     [SerializeField, ReadOnly] int numgglowFragments = 0;
+    [SerializeField] GameObject gglowOrb;
     
     [Header("Shrinking")]
     [SerializeField] float shrinkTime = 2;
     [SerializeField] Transform shrinkEnterLocationTransform;
     Vector3 shrinkEnterLocation => shrinkEnterLocationTransform.position;
-    // [SerializeField] Vector3 shrinkExitLocation;
     [SerializeField] GameObject mazeCamera;
     
     [Header("Popups")]
@@ -24,9 +24,6 @@ public class MazeManager : MonoBehaviour, IInteractable
     [Header("Squids")]
     [SerializeField] GameObject startSquid;
     [SerializeField] GameObject endSquid;
-    // [SerializeField, TextArea(1,5)] string earlyText = "You don't have enough orbs to leave.";
-    // [SerializeField, TextArea(1,5)] string winText = "You are amazeing!";
-    // [SerializeField, TextArea(1,5)] string fragmentText = "You got a gglow orb!";
     
     int _maxgGlowFragments => gglowOrbFragments.Count;
     
@@ -62,18 +59,17 @@ public class MazeManager : MonoBehaviour, IInteractable
     public void ExitMaze(){
         startSquid.SetActive(false);
         endSquid.SetActive(true);
+        gglowOrb.SetActive(true);
         StartCoroutine(EndMaze());
     }
     
     public void Interact(){
         if(numgglowFragments>=_maxgGlowFragments){
             GameObject popup = Instantiate(winPopup);
-            // uiManager.DisplayText(winText);
-            popup.GetComponent<ChatPopup>().callback.AddListener(ExitMaze);
+            popup.GetComponent<MultiLinePopup>().callback.AddListener(ExitMaze);
         }
         else {
             Instantiate(earlyPopup);
-            // uiManager.DisplayText(earlyText);
         }
     }
     

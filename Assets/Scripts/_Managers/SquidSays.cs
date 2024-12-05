@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum FlowerColor {R, G, B};
 // Manager for the Simon Says clone
@@ -13,36 +16,34 @@ public class SquidSays : MonoBehaviour
     
     [Header("Logic")]
     [SerializeField] List<int> roundLengths = new List<int>{3, 5, 7};
+    public List<GameObject> flowers = new List<GameObject>();
+    // Make squid say order but also reset colors
+    [SerializeField] GameObject gglowOrb;
     [SerializeField] ChatNode squidDialogue;
-    [SerializeField] TextAsset endDialogue;
+    [SerializeField] TextAsset midDialogue;
+    [SerializeField] TextAsset gameEndDialogue;
+    [SerializeField] TextAsset trueEndDialogue;
     [SerializeField] WallBreaker gate;
+    [SerializeField] UnityEvent endCallbacks;
     
     [Header("Display")]
     [SerializeField] TextMeshProUGUI roundText;
     [SerializeField] TextMeshProUGUI colorText;
     
     [Header("Popups")]
-    [SerializeField] GameObject startPopup;
-    [SerializeField] GameObject failPopup;
-    [SerializeField] GameObject roundWinPopup;
-    [SerializeField] GameObject gameWinPopup;
+    [SerializeField] TextAsset startPopup1;
+    [SerializeField] TextAsset failPopup1;
+    [SerializeField] TextAsset roundWinPopup1;
+    [SerializeField] TextAsset gameWinPopup1;
     [SerializeField] GameObject wholeWinPopup;
     
-    /* 
-    [Header("Old")]
-    [SerializeField][TextArea(1,5)] string startMessage = "I'm definitely the same squid as the one over there. You gotta pass 3 games of simon says but with flowers.\n";
-    [SerializeField][TextArea(1,5)] string failMessage = "No, no, no! That's the wrong flower! (or a bug...)\n";
-    [SerializeField][TextArea(1,5)] string roundWinMessage = "You did it!\nNext,";
-    [SerializeField][TextArea(1,5)] string gameWinMessage = "That's one game down. For the next game";
-    [SerializeField][TextArea(1,5)] string wholeWinMessage = "Congratulations cat! You did it! You're amazing!\nNext is the maze!";
-     */
-     
     int _game = 0;
     int _round = 0;
     bool _gameWon = false;
     string _colorDisplay = "";
     bool _reading = false;
     bool _started = false;
+    TextAsset _currDialogue;
     
     List<int> _roundColors;
     List<int> _selectedColors;
@@ -55,6 +56,8 @@ public class SquidSays : MonoBehaviour
     {
         uiManager = GameObject.FindWithTag("UIManager").GetComponent<UIManager>();
         NewGame();
+        
+        squidDialogue.callback.AddListener(KillNode);
     }
 
     // Update is called once per frame
@@ -86,7 +89,7 @@ public class SquidSays : MonoBehaviour
         _round++;
         _roundColors = new List<int>();
         for (int i=0; i<_round; i++){
-            _roundColors.Add(Random.Range(0, NUM_COLORS));
+            _roundColors.Add(UnityEngine.Random.Range(0, NUM_COLORS));
         }
         _selectedColors = new List<int>(_roundColors);
         if(_round > 1){
@@ -94,6 +97,13 @@ public class SquidSays : MonoBehaviour
         }
         roundText.text = $"Game: {_game}/{roundLengths.Count}\n Round: {_round}/{roundLengths[_game-1]}";
         squidDialogue.InjectText("[Name,Bill] "+GetSequence());
+    }
+    
+    void ResetSequence(){
+        _colorDisplay = "";
+        colorText.text = _colorDisplay;
+        _selectedColors = new List<int>(_roundColors);
+
     }
     
     string Color2String(FlowerColor fcol){
@@ -110,64 +120,89 @@ public class SquidSays : MonoBehaviour
         }
     }
     
+    string FoolColor2String(FlowerColor fcol){
+        string randColor = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1, 1, 1).ToHexString();
+        switch (fcol)
+        {
+            case FlowerColor.R:
+                return $"<color=#{randColor}>red</color>";
+            case FlowerColor.G:
+                return $"<color=#{randColor}>green</color>";
+            case FlowerColor.B:
+                return $"<color=#{randColor}>blue</color>";
+            default:
+                return $"<color=#{randColor}>red</color>";
+        }
+    }
+    
     string GetSequence(){
+        Func<FlowerColor, string> ColorFunc = (_game>=3 && (_round < 3 || _round == 5)) ? FoolColor2String : Color2String;
         string displayText = "The sequence is: ";
         for (int i = 0; i<_roundColors.Count-1; i++){
-            displayText += Color2String((FlowerColor)_roundColors[i])+", ";
+            displayText += ColorFunc((FlowerColor)_roundColors[i])+", ";
         }
-        displayText += Color2String((FlowerColor)_roundColors[_roundColors.Count-1])+"!";
+        displayText += ColorFunc((FlowerColor)_roundColors[_roundColors.Count-1])+"!";
         return displayText;
     }
     
     void Display(SquidMessages message){
         if (_reading) return;
         
+        _currDialogue = squidDialogue.conversation;
+        
         if (_gameWon){
             Instantiate(wholeWinPopup);
             return;
-            // uiManager.DisplayText(wholeWinMessage);
         }
         else if(message == SquidMessages.START){
-            tempNode = Instantiate(startPopup, transform.position, transform.rotation).GetComponent<ChatNode>();
+            squidDialogue.conversation = startPopup1;
+            squidDialogue.CreatePopups();
         }
         else if(message == SquidMessages.FAIL){
-            tempNode = Instantiate(failPopup, transform.position, transform.rotation).GetComponent<ChatNode>();
+            squidDialogue.conversation = failPopup1;
         }
         else if (message == SquidMessages.ROUND){
-            tempNode = Instantiate(roundWinPopup, transform.position, transform.rotation).GetComponent<ChatNode>();
+            squidDialogue.conversation = roundWinPopup1;
         }
         else if (message == SquidMessages.GAME){
-            tempNode = Instantiate(gameWinPopup, transform.position, transform.rotation).GetComponent<ChatNode>();
+            squidDialogue.conversation = gameWinPopup1;
         }
         else if (message == SquidMessages.WHOLE){
             Instantiate(wholeWinPopup);
             return;
         }
-        // else{
-        //     uiManager.DisplayText(message+GetSequence());
-        // }
         
-        StartCoroutine(WaitToInteract(message == SquidMessages.START));
+        if(message != SquidMessages.START) squidDialogue.InjectText("[Name,Bill] "+GetSequence());
+        squidDialogue.Interact();
         _reading = true;
     }
     
-    IEnumerator WaitToInteract(bool failInject){
-        yield return null;
-        if (!failInject) tempNode.InjectText("[Name,Bill] "+GetSequence());
-        tempNode.callback.AddListener(KillNode);
-        tempNode.Interact();
+    void WinGame(){
+        squidDialogue.conversation = gameEndDialogue;
+        squidDialogue.CreatePopups();
+        gglowOrb.SetActive(true);
     }
     
-    void WinGame(){
-        squidDialogue.conversation = endDialogue;
+    public void EndGame(){
+        squidDialogue.conversation = trueEndDialogue;
         squidDialogue.CreatePopups();
+        squidDialogue.callback = endCallbacks;
+        squidDialogue.Interact();
         gate?.BreakWall();
+        foreach (GameObject flower in flowers){
+            flower.layer = 0;
+        }
     }
     
     public void KillNode(){
-        Destroy(tempNode.gameObject);
-        tempNode = null;
-        _reading = false;
+        if (_reading){
+            _reading = false;
+            squidDialogue.conversation = _currDialogue;
+            squidDialogue.InjectText("[Name,Bill] "+GetSequence());
+        }
+        if (!_gameWon){
+            ResetSequence();
+        }
     }
     
     public void GetFlower(FlowerColor fc){
@@ -176,8 +211,7 @@ public class SquidSays : MonoBehaviour
             Display(SquidMessages.START);
             return;
         }
-        
-        if (_gameWon){
+        else if (_gameWon){
             Display(SquidMessages.WHOLE);
         }
         else if(_selectedColors[0] == (int)fc){
@@ -193,14 +227,17 @@ public class SquidSays : MonoBehaviour
         }
         else {
             // Reset
-            _colorDisplay = "";
-            colorText.text = _colorDisplay;
-            _selectedColors = new List<int>(_roundColors);
+            ResetSequence();
             Display(SquidMessages.FAIL);
         }
     }
     
     public void SetStart(){
-        _started = true;
+        if (!_started && squidDialogue.conversation != startPopup1) {
+            _started = true;
+            squidDialogue.conversation = midDialogue;
+            squidDialogue.CreatePopups();
+            squidDialogue.InjectText("[Name,Bill] "+GetSequence());
+        }
     }
 }

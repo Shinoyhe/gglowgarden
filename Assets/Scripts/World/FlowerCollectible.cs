@@ -18,6 +18,6 @@ public class FlowerCollectible : MonoBehaviour, IInteractable
     
     public void Interact(){
         GameObject.FindWithTag("UIManager").GetComponent<UIManager>().AddFlower();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

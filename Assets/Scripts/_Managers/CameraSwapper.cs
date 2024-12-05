@@ -39,6 +39,8 @@ public class CameraSwapper : MonoBehaviour
         dialogueCamera.SetActive(true);
         
         brain.m_DefaultBlend.m_Time = dialogueBlend;
+        
+        StopAllCoroutines();
     }
     public void endConversation()
     {
@@ -52,7 +54,7 @@ public class CameraSwapper : MonoBehaviour
     }
     
     IEnumerator WaitBeforeBlendChange(){
-       yield return new WaitForSeconds(dialogueBlend+0.1f);
+        yield return new WaitForSeconds(dialogueBlend+0.1f);
         brain.m_DefaultBlend.m_Time = defaultBlend;
     }
 }
