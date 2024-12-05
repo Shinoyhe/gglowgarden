@@ -1,7 +1,8 @@
-It is one of those runes Bill was talking about. You should-
-[Name,Bill] HALLO! OOOooooooooh you foooooooooound oneeeeeeeee :3c. Okee give me a moment >:3.
-They hover over the rune, and a patch of flowers nearby starts to illuminate.
+You find one of the runes Bill mentioned, and Bill not far from it. You sh-
+[Name,Bill] HALLO! OOOooooooooh you foooooooooound meeeeeee :3c. Okee give me a moment >:3.
+They focus their eyes, and a patch of flowers nearby starts to illuminate.
 [Name,Bill] Yippie! I still got it >:) You got this game first try!? This one’s my favorite! 
 [Name, Bill] Sosososososo… how it works: 
-[Name, Bill] The rune is gonna tell me a color, and your job is to pick the corresponding flowah sequence 
-[Name, Bill] that I tell you. Do that enough times and you’ll get a delicious ggl-orb :3.
+[Name, Bill] The rune is gonna tell me a color sequence of these three flowahs,  
+[Name, Bill] and your job is to pick the corresponding flowah sequence that I tell you. 
+[Name,Bill] Do that enough times and you’ll get a delicious ggl-orb :3.
