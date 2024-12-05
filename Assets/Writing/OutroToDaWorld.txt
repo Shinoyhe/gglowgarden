@@ -2,7 +2,7 @@
 Your hunger rests for the first time today. The sun beams down on you, basking in its rays.
 [Name,Bill] It’s really nice isn’t it? The sun beaming down on you… basking in its rays…
 They look at you, and though they lack a traditional mouth 
-you can tell that their smile shines like the sun you stare at. 
+you can tell that their smile shines like the sun.
 [Name,Bill] It was nice to have you around my feline friend. 
 [Name,Bill] Just like all the past times, this is where you must take your rest under the tree.
 They stare back at the sun, resting their head against you. Lightly giggling through oncoming tears.

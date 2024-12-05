@@ -1,8 +1,10 @@
-You approach the new rune, it is seemingly inscribed with a maze. You should call out for-
+Another rune, this one inscribed with a maze. 
+You see Bill standing next to a small structure on the ground, you-
 [Name,Bill] <i> Psst, hey ;3 nice rune ya got there. Need some help with it? </i>
+[Name,Bill]Ooooooooh.......... this one's tricky kitty cat :o
 [Name,Bill] Looks like there's 7 fragments of a ggl-orb in there.
 [Name,Bill] Gather them and I can put them back together!
-They hover over the rune again, and a maze next to the rune illuminates. 
+They focus their eyes again, and the structure illuminates.
 However, it is small, there is no way you can fit in there…
 [Name,Bill] I can help you fit in there :D!
 They put one of their tentacles on your shoulder as you shrink.
