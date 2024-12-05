@@ -27,13 +27,13 @@ public class CameraSwapper : MonoBehaviour
         
         defaultBlend = brain.m_DefaultBlend.m_Time;
     }
-    public void startConversation(Transform targetA, Transform targetB)
+    public void startConversation(Transform targetA, Transform player)
     {
         targetGroup.AddMember(targetA,1,0);
-        targetGroup.AddMember(targetB, 1, 0);
+        targetGroup.AddMember(player, 100, 0);
 
         toRemoveA = targetA;
-        toRemoveB = targetB;
+        toRemoveB = player;
 
         mainCamera.SetActive(false);
         dialogueCamera.SetActive(true);
