@@ -86,6 +86,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5159272455146360898}
   m_SourcePrefab: {fileID: 100100000, guid: 4e91c20c29042244dbab8eefd65b22b6, type: 3}
+--- !u!4 &372552687521998732 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8879528566716807029, guid: 4e91c20c29042244dbab8eefd65b22b6, type: 3}
+  m_PrefabInstance: {fileID: 9084321876058771705}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &648115757260927732 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8570190959715148301, guid: 4e91c20c29042244dbab8eefd65b22b6, type: 3}
@@ -187,7 +192,7 @@ MonoBehaviour:
   m_Roots: []
   m_UpdateRate: 60
   m_UpdateMode: 3
-  m_Damping: 0.1
+  m_Damping: 0.5
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -201,7 +206,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.1
+  m_Stiffness: 0.6
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -267,7 +272,7 @@ MonoBehaviour:
   m_Roots: []
   m_UpdateRate: 60
   m_UpdateMode: 3
-  m_Damping: 0.1
+  m_Damping: 0.2
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -281,7 +286,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.1
+  m_Stiffness: 0.8
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -302,7 +307,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Radius: 0
+  m_Radius: 0.1
   m_RadiusDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -318,7 +323,7 @@ MonoBehaviour:
   m_Exclusions: []
   m_FreezeAxis: 0
   m_DistantDisable: 0
-  m_ReferenceObject: {fileID: 0}
+  m_ReferenceObject: {fileID: 372552687521998732}
   m_DistanceToObject: 20
   m_Multithread: 1
 --- !u!4 &4345453371063205012 stripped
@@ -427,7 +432,7 @@ MonoBehaviour:
   m_Roots: []
   m_UpdateRate: 60
   m_UpdateMode: 3
-  m_Damping: 0.1
+  m_Damping: 0.2
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -441,7 +446,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.1
+  m_Stiffness: 0.8
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -462,7 +467,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Radius: 0
+  m_Radius: 0.1
   m_RadiusDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -478,7 +483,7 @@ MonoBehaviour:
   m_Exclusions: []
   m_FreezeAxis: 0
   m_DistantDisable: 0
-  m_ReferenceObject: {fileID: 0}
+  m_ReferenceObject: {fileID: 372552687521998732}
   m_DistanceToObject: 20
   m_Multithread: 1
 --- !u!4 &7195163972961903239 stripped
@@ -512,7 +517,7 @@ MonoBehaviour:
   m_Roots: []
   m_UpdateRate: 60
   m_UpdateMode: 3
-  m_Damping: 0.1
+  m_Damping: 0.2
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -526,7 +531,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.1
+  m_Stiffness: 0.8
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -547,7 +552,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Radius: 0
+  m_Radius: 0.1
   m_RadiusDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -563,7 +568,7 @@ MonoBehaviour:
   m_Exclusions: []
   m_FreezeAxis: 0
   m_DistantDisable: 0
-  m_ReferenceObject: {fileID: 0}
+  m_ReferenceObject: {fileID: 372552687521998732}
   m_DistanceToObject: 20
   m_Multithread: 1
 --- !u!1 &8995173207156826569 stripped
@@ -587,7 +592,7 @@ MonoBehaviour:
   m_Roots: []
   m_UpdateRate: 60
   m_UpdateMode: 3
-  m_Damping: 0.1
+  m_Damping: 0.2
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -601,7 +606,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.1
+  m_Stiffness: 0.8
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -622,7 +627,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Radius: 0
+  m_Radius: 0.1
   m_RadiusDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -638,7 +643,7 @@ MonoBehaviour:
   m_Exclusions: []
   m_FreezeAxis: 0
   m_DistantDisable: 0
-  m_ReferenceObject: {fileID: 0}
+  m_ReferenceObject: {fileID: 372552687521998732}
   m_DistanceToObject: 20
   m_Multithread: 1
 --- !u!4 &9091193256869261074 stripped
