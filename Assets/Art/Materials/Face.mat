@@ -78,7 +78,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 0.83
-    - _Amount: 0.015
+    - _Amount: 0.005
     - _BUILTIN_AlphaClip: 1
     - _BUILTIN_Blend: 0
     - _BUILTIN_CullMode: 2

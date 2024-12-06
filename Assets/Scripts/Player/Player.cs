@@ -11,6 +11,8 @@ public interface IInteractable
 
 public class Player : MonoBehaviour
 {
+    const float ANIM_MPS = 6;
+    
     [Header("References")]
     private CharacterController characterController;
 
@@ -122,7 +124,7 @@ public class Player : MonoBehaviour
         characterController.skinWidth = tiny ? ccSkinWidth*tinyMult : ccSkinWidth;
         
         animator.SetBool("Walking", walking);
-        animator.SetFloat("Walking Speed", currentWalkSpeed/minWalkSpeed);
+        animator.SetFloat("Walking Speed", currentWalkSpeed/ANIM_MPS);
     }
 
     private void ReadInput()
