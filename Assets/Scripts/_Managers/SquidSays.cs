@@ -17,7 +17,6 @@ public class SquidSays : MonoBehaviour
     [Header("Logic")]
     [SerializeField] List<int> roundLengths = new List<int>{3, 5, 7};
     public List<GameObject> flowers = new List<GameObject>();
-    // Make squid say order but also reset colors
     [SerializeField] GameObject gglowOrb;
     [SerializeField] ChatNode squidDialogue;
     [SerializeField] TextAsset midDialogue;
@@ -103,7 +102,6 @@ public class SquidSays : MonoBehaviour
         _colorDisplay = "";
         colorText.text = _colorDisplay;
         _selectedColors = new List<int>(_roundColors);
-
     }
     
     string Color2String(FlowerColor fcol){
@@ -183,6 +181,15 @@ public class SquidSays : MonoBehaviour
         gglowOrb.SetActive(true);
     }
     
+    IEnumerator SetFirstDialogueC(){
+        yield return new WaitForSeconds(3f);
+        squidDialogue.InjectText("[Name,Bill] "+GetSequence());
+    }
+    
+    public void SetFirstDialogue(){
+        StartCoroutine(SetFirstDialogueC());
+    }
+    
     public void EndGame(){
         squidDialogue.conversation = trueEndDialogue;
         squidDialogue.CreatePopups();
@@ -236,7 +243,6 @@ public class SquidSays : MonoBehaviour
         if (!_started && squidDialogue.conversation != startPopup1) {
             _started = true;
             squidDialogue.conversation = midDialogue;
-            squidDialogue.CreatePopups();
             squidDialogue.InjectText("[Name,Bill] "+GetSequence());
         }
     }

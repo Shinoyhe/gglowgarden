@@ -93,7 +93,7 @@
 			<value>2.5</value>
 		</property>
 		<property name="playlistMode">
-			<value>1</value>
+			<value>3</value>
 		</property>
 		<relationship name="sounds">
 			<destination>{bccb3cd8-c16d-47c9-87e0-c811600cbef3}</destination>
@@ -138,7 +138,7 @@
 			<value>40</value>
 		</property>
 		<property name="volume">
-			<value>-7</value>
+			<value>-10</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{f2fc8ea7-1958-405b-bab3-28811f8e7e79}</destination>

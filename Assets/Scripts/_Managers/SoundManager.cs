@@ -20,14 +20,9 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
     
     public EventInstance currentPlaying;
-    public EventInstance movementSFX;
     protected PLAYBACK_STATE playbackState;
-    protected PLAYBACK_STATE movementState;
     
     private EventInstance currentLetterSFX;
-
-    // Scream Distance
-    // public Vector2 screamDistance = new Vector2(10, 50);
 
     // Regions here to collapse code
     #region VOLUME CONTROL
@@ -38,8 +33,6 @@ public class SoundManager : MonoBehaviour
     public float musicVolume = 0.5f;
     [Range(0f, 1f)]
     public float sfxVolume = 0.5f;
-    // [Range(0f, 1f)]
-    // public float movementsfxVolume = 0.3f;
 
     // [Header("Bus Paths")]
     private string masterBusPath = "bus:/";
@@ -64,6 +57,7 @@ public class SoundManager : MonoBehaviour
     private string gglowOrbSFX = "event:/SFX/gglowOrb";
     private string squidSaysSFX = "event:/SFX/squidSays";
     private string squidInteractSFX = "event:/SFX/squidInteract";
+    private string collectFlowerSFX = "event:/SFX/CollectFlower";
     #endregion
 
     void Awake()
@@ -191,6 +185,7 @@ public class SoundManager : MonoBehaviour
             song.release();
         }
     }
+
     public IEnumerator RestOfPlayOST(string path)
     {
         Debug.Log("Stopping" + currentPlaying + " (rest of Play OST)");
@@ -217,49 +212,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // private void SwitchSong(string path)
-    // {
-    //     string newMusic = path.Split("/").Last().ToLower();
-    //     MusicTrack track = MusicTrack.MENU;
-    //     switch (newMusic)
-    //     {
-    //         case "menu":
-    //             track = MusicTrack.MENU;
-    //             break;
-    //         case "village":
-    //             track = MusicTrack.VILLAGE;
-    //             break;
-    //         case "crypt":
-    //             track = MusicTrack.CRYPT;
-    //             break;
-    //         case "dungeon":
-    //             track = MusicTrack.DUNGEON;
-    //             break;
-    //         case "chase":
-    //             track = MusicTrack.CHASE;
-    //             break;
-    //         case "ending":
-    //             track = MusicTrack.ENDING;
-    //             break;
-    //         default:
-    //             track = MusicTrack.ENDING;
-    //             break;
-    //     }
-
-    //     currentPlaying.setParameterByName("GAME SCENE", (float)track);
-    //     currentTrack = track;
-    //     Debug.Log("Played: " + track);
-    // }
-
     /// <summary>
     /// Stops the song currently playing
     /// </summary>
     public void StopCurrentSong()
     {
-        // MusicTrack track = MusicTrack.STOP;
-        // currentPlaying.setParameterByName("SHOP", 0);
-        // currentPlaying.setParameterByName("GAME SCENE", (float)track);
-        // currentTrack = track;
         StartCoroutine(StopCurrentSongRoutine());
     }
 
@@ -280,106 +237,14 @@ public class SoundManager : MonoBehaviour
     {
         PlayOST(masterOST);
     }
-/* 
-    public void PlayVillageOST()
-    {
-        PlayOST(villageOST);
-    }
-
-    public void PlayCryptKeeperOST()
-    {
-        PlayOST(cryptOST);
-    }
-    
-    public void PlayShopOST(){
-        SetShopOST(true, 3f);
-    }
-    
-    public void StopShopOST(){
-        SetShopOST(false, 3f);
-    }
-
-    /// <summary>
-    /// Transitions between Village OST and Shop OST
-    /// </summary>
-    /// <param name="play">Whether to play or stop the OST</param>
-    /// <param name="transitionTime">The transition time</param>
-    public void SetShopOST(bool play, float transitionTime)
-    {
-        if (currentTrack == MusicTrack.VILLAGE)
-        {
-            StartCoroutine(TransitionToShopOST(play, transitionTime));
-        }
-    }
-
-    private IEnumerator TransitionToShopOST(bool play, float transitionTime)
-    {
-        float start = play ? 0 : 1;
-        float goal = play ? 1 : 0;
-        float tTime = 0;
-
-        while (tTime < transitionTime)
-        {
-            tTime += Time.deltaTime;
-            float transition = Mathf.Lerp(start, goal, tTime / transitionTime);
-            currentPlaying.setParameterByName("SHOP", transition);
-            yield return null;
-        }
-    }
-
-    /// <summary>
-    /// Plays the dungeon ost
-    /// </summary>
-    public void PlayDungeonOST()
-    {
-        PlayOST(dungeonOST);
-    }
-
-    /// <summary>
-    /// Plays the chase ost
-    /// </summary>
-    public void PlayChaseOST()
-    {
-        PlayOST(chaseOST);
-    }
-
-    public void PlayEndingOST()
-    {
-        PlayOST(endingOST);
-    } */
     #endregion
 
     #region SFX Functions
     public void PlayLetterTrack(LetterSFX letterTrack, float pitch)
     {
-        // float value;
-        // switch (letterTrack)
-        // {
-        //     case LetterSFX.A:
-        //         value = 0;
-        //         break;
-        //     case LetterSFX.E:
-        //         value = 1;
-        //         break;
-        //     case LetterSFX.I:
-        //         value = 2;
-        //         break;
-        //     case LetterSFX.O:
-        //         value = 3;
-        //         break;
-        //     case LetterSFX.U:
-        //         value = 4;
-        //         break;
-        //     case LetterSFX.PUNCTUATION:
-        //         value = 5;
-        //         break;
-        //     default:
-        //         return;
-        // }
         PlayLetterModified(letterSFX, "Letter", (int)letterTrack, pitch);
     }
 
-    
     public void PlaygglowOrbSFX()
     {
         Play(gglowOrbSFX);
@@ -395,81 +260,9 @@ public class SoundManager : MonoBehaviour
         Play(squidInteractSFX);
     }
     
-    /// <summary>
-    /// Plays a scream in the given emitter
-    /// </summary>
-    /// <param name="emitter">The emitter to play the scream at</param>
-    // public void PlayScream(StudioEventEmitter emitter)
-    // {
-    //     emitter.EventReference = RuntimeManager.PathToEventReference(monsterScream);
-    //     emitter.ResetEvent();
-    //     emitter.OverrideAttenuation = true;
-    //     emitter.OverrideMinDistance = screamDistance.x;
-    //     emitter.OverrideMaxDistance = screamDistance.y;
-    //     emitter.Play();
-    // }
-
-    private IEnumerator FadeOut()
-    {
-        movementSFX.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        movementSFX.getPlaybackState(out movementState);
-        while (movementState != PLAYBACK_STATE.STOPPED)
-        {
-            movementSFX.getPlaybackState(out movementState);
-            yield return null;
-        }
+    public void PlayCollectFlowerSFX(){
+        Play(collectFlowerSFX);
     }
-
-    // public void PlayLowStaminaSFX()
-    // {
-    //     if (movementSFX.isValid())
-    //     {
-    //         StartCoroutine(FadeOut());
-    //     }
-    //     FMOD.RESULT result = RuntimeManager.StudioSystem.getEvent(lowStaminaSFX, out _);
-    //     if (result != FMOD.RESULT.OK)
-    //     {
-    //         Debug.LogWarning("FMOD event path does not exist: " + lowStaminaSFX);
-    //         return;
-    //     }
-
-    //     movementSFX = RuntimeManager.CreateInstance(lowStaminaSFX);
-    //     movementSFX.setVolume(sfxVolume);
-    //     movementSFX.start();
-
-    // }
-
-    // public void PlayStepSFX(float running = 0.0f)
-    // {
-    //     if (movementSFX.isValid())
-    //     {
-    //         StartCoroutine(FadeOut());
-    //     }
-    //     FMOD.RESULT result = RuntimeManager.StudioSystem.getEvent(playerStepSFX, out _);
-    //     if (result != FMOD.RESULT.OK)
-    //     {
-    //         Debug.LogWarning("FMOD event path does not exist: " + playerStepSFX);
-    //         return;
-    //     }
-    //     movementSFX = RuntimeManager.CreateInstance(playerStepSFX);
-    //     movementSFX.setParameterByName("running", running);
-    //     movementSFX.setVolume(movementsfxVolume);
-    //     movementSFX.start();
-    // }
-
-    // public void StopStepSound(bool immediate)
-    // {
-    //     if (movementSFX.isValid() && !immediate)
-    //     {
-    //         StartCoroutine(FadeOut());
-    //     }
-    //     else if (movementSFX.isValid())
-    //     {
-    //         movementSFX.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-    //         movementSFX.release();
-    //     }
-    // }
-
 
     /// <summary>
     /// Plays the select sfx

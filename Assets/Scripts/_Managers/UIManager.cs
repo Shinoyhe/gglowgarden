@@ -135,6 +135,7 @@ public class UIManager : MonoBehaviour
     }
     
     public void AddFlower(){
+        soundManager.PlayCollectFlowerSFX();
         Instantiate(flowerPopup);
         flowersCollected++;
     }
