@@ -22,10 +22,15 @@ public class DisplayText : MonoBehaviour
     public Image dialogueTextBackground;
     public Image nameBackground;
 
-    [Header("Themes")]
+
+    [Header("Theme Assets")]
+    public Sprite backgroundNarration;
+    public Sprite backgroundSquid;
+
+/*    [Header("Themes")]
     public TextTheme narrationTheme;
     public TextTheme npcTheme;
-
+*/
     [Header("Audio Clips")]
     public int numTalkingClips = 6;
     public AudioClip[] talkingClips;
@@ -73,18 +78,18 @@ public class DisplayText : MonoBehaviour
 
         bool isNarration = nameText.text == null;
 
-        TextTheme currentTheme = npcTheme;
+        // TextTheme currentTheme = npcTheme;
 
         if (isNarration)
         {
-            currentTheme = narrationTheme;
+            dialogueTextBackground.sprite = backgroundNarration;
+            nameBackground.color = Color.clear;
         }
-
-        nameText.color = currentTheme.nameTextColor;
-        nameBackground.color = currentTheme.nameBackgroundColor;
-
-        dialogueText.color = currentTheme.mainTextColor;
-        dialogueTextBackground.color = currentTheme.mainBackgroundColor;
+        else
+        {
+            dialogueTextBackground.sprite = backgroundSquid;
+            nameBackground.color = Color.white;
+        }
     }
 
     public void skipText()
