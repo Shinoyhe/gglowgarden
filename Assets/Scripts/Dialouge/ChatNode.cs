@@ -28,6 +28,7 @@ public class ChatNode : ChatHelper, IInteractable
 
     [Header("Conversation Text")]
     public TextAsset conversation;
+    [SerializeField] float talkSpeed = 1f;
 
     [Space]
     [Space]
@@ -45,6 +46,9 @@ public class ChatNode : ChatHelper, IInteractable
     CoreInput action;
     string lastConvo;
     private InputAction interactAction;
+    
+    bool validAnimator = false;
+    Animator animator;
 
     void OnValidate()
     {
@@ -68,11 +72,18 @@ public class ChatNode : ChatHelper, IInteractable
         action = player.action;
         interactAction = action.Player.Interact;
         cameraController = GameObject.FindWithTag("CameraController").GetComponent<CameraSwapper>();
+        
+        validAnimator = TryGetComponent(out animator);
     }
 
     public void Update()
     {
         bool pressedInteract = interactAction.WasPressedThisFrame() && interactAction.ReadValue<float>() == 1;
+        
+        if (validAnimator){
+            animator.SetBool("Talking", conversationStarted && dialoguePrefabInstance);
+            animator.SetFloat("Talk Speed", talkSpeed);
+        }
         
         // Debug skip chat
         if (action.Player.Debug.triggered && conversationStarted){

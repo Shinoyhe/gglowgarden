@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -250,5 +252,21 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, interactDistance);
     }
-
+    
+    public void EatOrb(Action endAction){
+        StartCoroutine(ConsumeOrb(endAction));
+    }
+    
+    IEnumerator ConsumeOrb(Action endAction){
+        canMove = false;
+        float temp = 0;
+        float goal = Mathf.Atan2(0, -1) * Mathf.Rad2Deg;
+        while (transform.rotation != Quaternion.Euler(0f, goal, 0f)){
+            float targetRotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, goal, ref temp, turnTime);
+            transform.rotation = Quaternion.Euler(0f, targetRotation, 0f);
+            yield return null;
+        }
+        animator.SetTrigger("Eat");
+        endAction();
+    }
 }

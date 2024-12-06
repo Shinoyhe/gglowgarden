@@ -101,6 +101,7 @@ public class MainMenuManager : MonoBehaviour
     
     IEnumerator ExitGame(){
         brain.m_DefaultBlend.m_Time = _defaultBlendTime*endCameraTimeMult;
+        FindAnyObjectByType<DisplayText>()?.gameObject.SetActive(false);
         mainMenuCamera.SetActive(true);
         system.enabled = false;
         core.Player.Disable();

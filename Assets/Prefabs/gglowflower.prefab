@@ -85,7 +85,7 @@ PrefabInstance:
       addedObject: {fileID: 8880335006482511008}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a16dc4357a154b74ba0cd23cb5fdd84a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9116782763261980942}
+      addedObject: {fileID: 6905921738258962842}
   m_SourcePrefab: {fileID: 100100000, guid: a16dc4357a154b74ba0cd23cb5fdd84a, type: 3}
 --- !u!1 &6269433488755916163 stripped
 GameObject:
@@ -105,9 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flowerColor: 1
-  squidSaysManager: {fileID: 0}
---- !u!135 &9116782763261980942
-SphereCollider:
+--- !u!136 &6905921738258962842
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -124,6 +123,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 2
   m_Radius: 0.039559238
-  m_Center: {x: -0.0000000018626451, y: 0, z: 0.040066607}
+  m_Height: 0.1
+  m_Direction: 2
+  m_Center: {x: -0.0000000018626451, y: 0, z: 0.05}

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class WallBreaker : MonoBehaviour
 {
+    Animator animator;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -17,10 +19,10 @@ public class WallBreaker : MonoBehaviour
     }
     
     public void BreakWall(){
-        gameObject.SetActive(false);
+        animator.SetTrigger("Open");
     }
     
     public void BuildWall(){
-        gameObject.SetActive(true);
+        animator.SetTrigger("Close");
     }
 }

@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: aedd57960c8cbcf49b3a4df993e77bab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -104,6 +104,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Player_Distance: 0
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -112,6 +113,6 @@ Material:
     - _WARP_ENABLE: 1
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.63204527, g: 0, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.49803925, g: 0, b: 1, a: 1}
+    - _EmissionColor: {r: 2.3238332, g: 0, b: 3.9698112, a: 1}
   m_BuildTextureStacks: []

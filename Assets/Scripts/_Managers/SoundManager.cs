@@ -76,7 +76,7 @@ public class SoundManager : MonoBehaviour
         masterBus = RuntimeManager.GetBus(masterBusPath);
         musicBus = RuntimeManager.GetBus(musicBusPath);
         sfxBus = RuntimeManager.GetBus(sfxBusPath);
-        SceneManager.sceneLoaded += (_, _) => PlayMasterOST();
+        // SceneManager.sceneLoaded += (_, _) => PlayMasterOST();
         SceneManager.sceneUnloaded += (_) => StopCurrentSong();
         
         if (!RuntimeManager.HasBankLoaded("Master"))
@@ -86,9 +86,9 @@ public class SoundManager : MonoBehaviour
         }
     }
     
-    // private void Start() {
-    //     PlayMasterOST();
-    // }
+    private void Start() {
+        PlayMasterOST();
+    }
 
     // Update is called once per frame
     void Update()
